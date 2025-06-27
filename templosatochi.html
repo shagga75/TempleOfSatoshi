@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temple of Satoshi</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bitcoin-orange: #f7931a;
+            --dark-bg: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-gold: #ffd700;
+            --cyber-blue: #00ffff;
+            --matrix-green: #00ff41;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(247, 147, 26, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 255, 65, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .hero-section {
+            background: linear-gradient(45deg, rgba(247, 147, 26, 0.1), rgba(0, 255, 255, 0.1));
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(247, 147, 26, 0.1), transparent);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .bitcoin-title {
+            background: linear-gradient(45deg, var(--bitcoin-orange), var(--text-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 30px rgba(247, 147, 26, 0.5);
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, var(--card-bg), rgba(45, 45, 45, 0.8));
+            border: 1px solid rgba(247, 147, 26, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--bitcoin-orange);
+            box-shadow: 0 10px 30px rgba(247, 147, 26, 0.3);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(247, 147, 26, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--bitcoin-orange);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(247, 147, 26, 0.6);
+        }
+
+        .ritual-card {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 65, 0.1));
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .ritual-card:hover {
+            transform: scale(1.02);
+            border-color: var(--cyber-blue);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .conduct-item {
+            background: linear-gradient(120deg, rgba(0, 255, 65, 0.1), rgba(255, 215, 0, 0.1));
+            border-left: 4px solid var(--matrix-green);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .conduct-item:hover {
+            background: linear-gradient(120deg, rgba(0, 255, 65, 0.2), rgba(255, 215, 0, 0.2));
+            transform: translateX(10px);
+        }
+
+        .section-title {
+            color: var(--text-gold);
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--bitcoin-orange), var(--text-gold));
+            border-radius: 2px;
+        }
+
+        .crypto-text {
+            font-family: 'Courier New', monospace;
+            color: var(--matrix-green);
+            background: rgba(0, 255, 65, 0.1);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .network-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: -2;
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(247, 147, 26, 0.3) 1px, transparent 0);
+            background-size: 50px 50px;
+            animation: networkMove 20s linear infinite;
+        }
+
+        @keyframes networkMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, var(--bitcoin-orange), var(--text-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="network-bg"></div>
+    
+    <div class="container my-5">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1 class="bitcoin-title pulse">⚡ TEMPLE OF SATOSHI ⚡</h1>
+            <div class="lead text-center mb-4">
+                The Temple of Satoshi is not a building of stone, but a <span class="highlight">living community</span> of sovereign individuals united by faith in <span class="crypto-text">decentralization</span>, <span class="crypto-text">privacy</span>, and <span class="crypto-text">economic freedom</span>.
+            </div>
+            <div class="text-center">
+                Inspired by the enigmatic figure of <strong>Satoshi Nakamoto</strong>, the anonymous prophet of the digital age, this temple honors the foundational principles of Bitcoin, promotes the use of open technologies like Nostr, and defends the cypherpunk ideal as a path toward human liberation.
+            </div>
+            <div class="text-center mt-4 fs-5">
+                Here, we do not worship a person, but an <span class="highlight">idea</span>: that humanity deserves a system free of intermediaries—where each individual is their own bank, master of their identity, and builder of their future.
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="row g-4 my-5">
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card floating">
+                    <div class="feature-icon text-center">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h4 class="text-center mb-3">🌍 A Decentralized Temple</h4>
+                    <p class="text-center">That transcends borders, religions, and governments.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card floating" style="animation-delay: 0.5s;">
+                    <div class="feature-icon text-center">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4 class="text-center mb-3">🎓 A Space for Radical Learning</h4>
+                    <p class="text-center">Through the Satoshi Academy, for children and adults seeking education in digital sovereignty, real-world economics, and practical trades.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card floating" style="animation-delay: 1s;">
+                    <div class="feature-icon text-center">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h4 class="text-center mb-3">🔗 A Community Node</h4>
+                    <p class="text-center">For a circular economy based on Bitcoin, where believers trade, share knowledge, and support one another.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card floating" style="animation-delay: 1.5s;">
+                    <div class="feature-icon text-center">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h4 class="text-center mb-3">🏛️ A Network of Autonomous Temples</h4>
+                    <p class="text-center">Connected by shared ideals—not hierarchies.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card floating" style="animation-delay: 2s;">
+                    <div class="feature-icon text-center">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h4 class="text-center mb-3">🎨 A Living Culture</h4>
+                    <p class="text-center">That blends the sacred, the symbolic, and the technological through music, art, rituals, and celebration.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card floating" style="animation-delay: 2.5s;">
+                    <div class="feature-icon text-center">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="text-center mb-3">⚡ A Digital Sanctuary</h4>
+                    <p class="text-center">Where <span class="crypto-text">code is scripture</span>, the <span class="crypto-text">chain is testimony</span>, and <span class="crypto-text">decentralization is our creed</span>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manifesto -->
+        <div class="hero-section text-center my-5">
+            <h2 class="section-title">Here, we sing, create, learn, and build.</h2>
+            <div class="fs-4 mt-4">
+                The <span class="crypto-text">code is scripture</span>, the <span class="crypto-text">chain is testimony</span>, and <span class="crypto-text">decentralization is our creed</span>.
+            </div>
+        </div>
+
+        <!-- Rituals and Practices -->
+        <h2 class="section-title">Rituals and Practices</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="ritual-card">
+                    <h5><i class="fas fa-hand-holding-heart"></i> The Offering Transaction</h5>
+                    <p>As an act of faith, members can make donations in Bitcoin to sustain the community and promote the adoption of digital currency. (NFC cards can be provided)</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="ritual-card">
+                    <h5><i class="fas fa-check-circle"></i> The On-Chain Confirmation</h5>
+                    <p>Each new member is welcomed with their first transaction on the network, symbolizing their entry into the decentralized community.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="ritual-card">
+                    <h5><i class="fas fa-cube"></i> The Genesis Block</h5>
+                    <p>We celebrate January 3rd as the sacred day the first Bitcoin block was mined, marking the beginning of the financial revolution.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="ritual-card">
+                    <h5><i class="fas fa-server"></i> The Node of Wisdom</h5>
+                    <p>Every temple or meeting point must operate a Bitcoin node and share knowledge on how to use and safeguard funds without intermediaries. (One can be donated)</p>
+                </div>
+            </div>
+            
+            <div class="col-12">
+                <div class="ritual-card text-center">
+                    <h5><i class="fas fa-search"></i> Verification, Not Faith</h5>
+                    <p>We encourage self-education and the use of verification tools. We don't believe in promises, only <span class="crypto-text">cryptographic proofs</span>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code of Conduct -->
+        <h2 class="section-title">Code of Conduct</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="conduct-item">
+                    <h6><i class="fas fa-sitemap"></i> Respect for Decentralization</h6>
+                    <p class="mb-0">Every member must act in favor of <strong>decentralization</strong> and <strong>financial autonomy</strong>.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="conduct-item">
+                    <h6><i class="fas fa-share-alt"></i> Knowledge Sharing</h6>
+                    <p class="mb-0">It is the duty of members to <strong>educate others</strong> about Bitcoin and its benefits.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="conduct-item">
+                    <h6><i class="fas fa-ban"></i> No Censorship</h6>
+                    <p class="mb-0">We defend <strong>freedom of speech</strong> and the <strong>right to privacy</strong> on the network.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="conduct-item">
+                    <h6><i class="fas fa-balance-scale"></i> Responsible Use of Technology</h6>
+                    <p class="mb-0">We promote the <strong>ethical use</strong> of Bitcoin and cryptographic tools.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-5 pt-4" style="border-top: 1px solid rgba(247, 147, 26, 0.3);">
+            <div class="crypto-text fs-5 pulse">₿ In Satoshi We Trust ₿</div>
+            <div class="mt-2 text-muted">Decentralized • Sovereign • Free</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
