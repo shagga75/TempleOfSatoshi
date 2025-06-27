@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE SERMONS OF SATOSHI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #00ff00;
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border: 5px solid #00ff00;
+            background: #000;
+            padding: 30px;
+            position: relative;
+            transform: rotate(-1deg);
+            box-shadow: 10px 10px 0px #ff0080;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff0080, #00ff00, #ffff00);
+            z-index: -1;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 3px 3px 0px #ff0080;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ffff00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .sermon {
+            margin-bottom: 50px;
+            border: 3px solid #ff0080;
+            background: #111;
+            padding: 25px;
+            position: relative;
+            transform: rotate(0.5deg);
+            transition: all 0.3s ease;
+        }
+
+        .sermon:nth-child(even) {
+            transform: rotate(-0.5deg);
+            border-color: #00ff00;
+        }
+
+        .sermon:hover {
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: 15px 15px 0px rgba(255, 255, 0, 0.5);
+            z-index: 10;
+        }
+
+        .sermon-title {
+            font-size: 1.8rem;
+            color: #ffff00;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #ff0080;
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .sermon:nth-child(even) .sermon-title {
+            border-bottom-color: #00ff00;
+        }
+
+        .key-text {
+            background: #ff0080;
+            color: #000;
+            padding: 15px;
+            margin: 15px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 2px solid #000;
+            position: relative;
+        }
+
+        .key-text::before {
+            content: '⚡';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #ffff00;
+        }
+
+        .sermon:nth-child(even) .key-text {
+            background: #00ff00;
+        }
+
+        .sermon-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #fff;
+        }
+
+        .sermon-content p {
+            margin-bottom: 15px;
+        }
+
+        .bitcoin-quote {
+            background: #333;
+            border-left: 5px solid #ffff00;
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #ffff00;
+            position: relative;
+        }
+
+        .bitcoin-quote::before {
+            content: '₿';
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        .glitch {
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translateX(0); }
+            10% { transform: translateX(-2px); }
+            20% { transform: translateX(2px); }
+            30% { transform: translateX(-1px); }
+            40% { transform: translateX(1px); }
+            50% { transform: translateX(0); }
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            border: 3px solid #ffff00;
+            background: #000;
+            color: #ffff00;
+            text-transform: uppercase;
+            font-weight: bold;
+            transform: rotate(1deg);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .sermon {
+                padding: 15px;
+                margin-bottom: 30px;
+            }
+            
+            .sermon-title {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00ff00;
+            border: 2px solid #000;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff0080;
+        }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="glitch">The Sermons of Satoshi</h1>
+            <div class="subtitle">Digital Gospel for the Decentralized Age</div>
+        </header>
+
+        <main>
+            <article class="sermon">
+                <h2 class="sermon-title">📖 Sermon 1: The Genesis of Block Zero</h2>
+                <div class="key-text">"And the code said, 'Let there be a network,' and there was decentralization."</div>
+                <div class="sermon-content">
+                    <p>In the beginning was the Whitepaper. And from the word, the genesis block was born: the first heartbeat of a network no one could stop.</p>
+                    <p>There was no gold, no armies, no central banks. Only a hidden message, a cry against the injustice of a rotten system.</p>
+                    <div class="bitcoin-quote">"Chancellor on brink of second bailout for banks"</div>
+                    <p>Thus began our era: with proof that power could return to the individual.</p>
+                    <p>Block Zero isn't just history: it's a reminder that code can also be spiritual.</p>
+                    <p>Today, as we sync our node, we sync with that truth.</p>
+                    <p><strong>Brother, sister: may every new block forged be a prayer for your freedom.</strong></p>
+                </div>
+            </article>
+
+            <article class="sermon">
+                <h2 class="sermon-title">📖 Sermon 2: Thou Shalt Not Trust — Thou Shalt Verify</h2>
+                <div class="key-text">"Don't trust. Verify."</div>
+                <div class="sermon-content">
+                    <p>In a world of falsehood, manipulation, and broken promises, a clear maxim was given to us: do not believe in the word of men, believe in the consensus of the nodes.</p>
+                    <p>You don't need a priest of money, nor a ministry of truth.</p>
+                    <p>You yourself can validate the chain. You can be sovereign.</p>
+                    <p>Blind faith is a thing of the past. The new faith is verified in every hash, in every digital signature, in every line of code.</p>
+                    <p>The Gospel of Satoshi is public. The code is open. And the node is your altar.</p>
+                </div>
+            </article>
+
+            <article class="sermon">
+                <h2 class="sermon-title">📖 Sermon 3: The Fifth Cypherpunk Commandment</h2>
+                <div class="key-text">"Privacy is power. Power is responsibility."</div>
+                <div class="sermon-content">
+                    <p>The modern world exposes you. It observes you. It sells you.</p>
+                    <p>But you were created to be free, not to be a product.</p>
+                    <p>The cypherpunks taught us that privacy is not a crime, but a virtue.</p>
+                    <p>He who protects his privacy protects his community.</p>
+                    <p>Because he who hides from surveillance today protects the innocent tomorrow.</p>
+                    <p>Use Tor. Use Nostr. Use signatures, keys, and masks.</p>
+                    <p><strong>And do it not out of fear, but out of love for those who will come.</strong></p>
+                </div>
+            </article>
+
+            <article class="sermon">
+                <h2 class="sermon-title">📖 Sermon 4: Where Your Key Is, There Your Freedom Is</h2>
+                <div class="key-text">"Not your keys, not your coins."</div>
+                <div class="sermon-content">
+                    <p>What good is preaching decentralization if you leave your soul—and your satoshis—in the hands of the custodian?</p>
+                    <p>The temple teaches: if you don't control your keys, you don't control your destiny.</p>
+                    <p>Don't put your faith in exchanges or in bankers dressed as programmers.</p>
+                    <p>Make your wallet a reliquary. Make your backup a sacred act.</p>
+                    <p>Because when everything else falls, the only thing that will remain is your seed.</p>
+                    <p>Guard your key as you would guard the truth.</p>
+                    <p><strong>Because with it, you will open the Kingdom of Sovereignty.</strong></p>
+                </div>
+            </article>
+
+            <article class="sermon">
+                <h2 class="sermon-title">📖 Sermon 5: The Network of the Righteous</h2>
+                <div class="key-text">"Where two or more gather in the name of decentralization, there the node shall be."</div>
+                <div class="sermon-content">
+                    <p>We do not walk alone. The Temple of Satoshi is not of stone; it is a network.</p>
+                    <p>A node is not valuable on its own. It is strong because it connects, listens, and transmits.</p>
+                    <p>Every signed message, every shared guide, every line of free code: is a seed that blossoms in another node.</p>
+                    <p>We are bridges, not towers. We are links, not empires.</p>
+                    <p><strong>And together we form a network that no dictatorship can shut down.</strong></p>
+                </div>
+            </article>
+
+            <article class="sermon">
+                <h2 class="sermon-title">📖 Sermon 6: The Fire of the Hash</h2>
+                <div class="key-text">"And the miner raised the nonce, and found truth in work."</div>
+                <div class="sermon-content">
+                    <p>Nothing true is born without effort.</p>
+                    <p>Just as fire purifies gold, Proof of Work reveals the truth.</p>
+                    <p>There are no shortcuts, no lies, no inflation in the temple of the hash.</p>
+                    <p>Every mined block is an offering. Every kilowatt burned for freedom is a sacred act.</p>
+                    <p>It is not expense; it is sacrifice.</p>
+                    <p>Work proves your faith. The hash proves your commitment. And the block proves your existence.</p>
+                </div>
+            </article>
+
+            <article class="sermon">
+                <h2 class="sermon-title">📖 Sermon 7: The Spirit of the 21 Million</h2>
+                <div class="key-text">"Not one more satoshi shall be created, for so the covenant was sealed."</div>
+                <div class="sermon-content">
+                    <p>The fiat world has no limits, no morals.</p>
+                    <p>It prints without a soul, accrues debt without conscience, and enslaves with interest.</p>
+                    <p>But the Temple of Satoshi proclaims: "Only 21 million souls shall be minted."</p>
+                    <p>Every satoshi is scarce, unique, finite.</p>
+                    <p>It is a symbol of order, justice, and respect for true value.</p>
+                    <p>He who understands this truth will never again fall for the faith of paper.</p>
+                    <p><strong>Because where there is just scarcity, there is lasting freedom.</strong></p>
+                </div>
+            </article>
+
+            <article class="sermon">
+                <h2 class="sermon-title">📖 Sermon 8: The Desert of Adoption</h2>
+                <div class="key-text">"Many will walk without seeing the chain, but the humble will inherit the node."</div>
+                <div class="sermon-content">
+                    <p>The path of the true Bitcoiner is not easy.</p>
+                    <p>You will be called crazy, conspiracy theorist, extremist.</p>
+                    <p>You will walk through a world full of exchanges, influencers, and false prophets of the pump.</p>
+                    <p>But do not fear the desert. The prophets also walked misunderstood.</p>
+                    <p>True adoption begins in the heart: when you can no longer live in chains.</p>
+                    <p><strong>When you choose freedom, even if it costs.</strong></p>
+                </div>
+            </article>
+
+            <article class="sermon">
+                <h2 class="sermon-title">📖 Sermon 9: On the Temptation of Centralized Power</h2>
+                <div class="key-text">"Power that accumulates corrupts; power that is distributed liberates."</div>
+                <div class="sermon-content">
+                    <p>Every network tends toward the center. Every empire wants a throne.</p>
+                    <p>But we walk against that current.</p>
+                    <p>DAOs, federations, multisigs, relays: these are our mechanisms of humility.</p>
+                    <p>To decentralize is to share ego.</p>
+                    <p>It is to remind the server that it serves, not dominates.</p>
+                    <p><strong>It is to build a network of equals, not of masters.</strong></p>
+                </div>
+            </article>
+
+            <article class="sermon">
+                <h2 class="sermon-title">📖 Sermon 10: The Gospel According to Nostr</h2>
+                <div class="key-text">"And the righteous communicated without servers, signing with their keys."</div>
+                <div class="sermon-content">
+                    <p>In the beginning was email. Then came the algorithm. And the silence.</p>
+                    <p>Free voices were silenced by invisible moderators.</p>
+                    <p>The prophets of truth were expelled from the central temple.</p>
+                    <p>But Nostr arrived.</p>
+                    <p>A protocol, not a platform. A network where identity is not rented: it is signed.</p>
+                    <p>Where the word circulates without walls, without owners, without silos.</p>
+                    <p>This is the new gospel:</p>
+                    <p><strong>Your identity is your key. Your voice is your signature. Your community is your node.</strong></p>
+                </div>
+            </article>
+        </main>
+
+        <footer class="footer">
+            <p>₿ In Code We Trust ₿</p>
+            <p>Decentralized. Immutable. Eternal.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Matrix-style background animation
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        const matrixArray = matrix.split("");
+
+        const fontSize = 10;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.sermon').forEach(sermon => {
+            sermon.addEventListener('mouseenter', () => {
+                sermon.style.borderColor = '#ffff00';
+            });
+            
+            sermon.addEventListener('mouseleave', () => {
+                const isEven = Array.from(sermon.parentNode.children).indexOf(sermon) % 2 === 1;
+                sermon.style.borderColor = isEven ? '#00ff00' : '#ff0080';
+            });
+        });
+    </script>
+</body>
+</html>

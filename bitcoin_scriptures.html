@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Scriptures of Bitcoin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+        
+        :root {
+            --parchment: #f4f1e8;
+            --dark-parchment: #e8e2d0;
+            --gold: #d4af37;
+            --bronze: #cd7f32;
+            --dark-earth: #4a3728;
+            --rich-brown: #6b4e3d;
+            --warm-amber: #ffb347;
+        }
+        
+        body {
+            background: linear-gradient(45deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+            font-family: 'Crimson Text', serif;
+            color: var(--dark-earth);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(205, 127, 50, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .scripture-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid var(--gold);
+            border-radius: 15px;
+            box-shadow: 
+                0 0 30px rgba(212, 175, 55, 0.3),
+                inset 0 0 20px rgba(244, 241, 232, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scripture-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--gold), var(--bronze), var(--gold));
+            z-index: -1;
+            border-radius: 15px;
+        }
+        
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: var(--dark-earth);
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+        
+        .main-title::after {
+            content: '₿';
+            position: absolute;
+            top: -10px;
+            right: -30px;
+            font-size: 1.5rem;
+            color: var(--gold);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--gold); }
+            to { text-shadow: 0 0 20px var(--gold); }
+        }
+        
+        .chapter-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--rich-brown);
+            margin: 2rem 0 1rem 0;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--warm-amber) 100%);
+            border-radius: 10px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chapter-title::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+        
+        .scripture-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+            padding: 0 1rem;
+            position: relative;
+        }
+        
+        .scripture-text::first-letter {
+            font-size: 3rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--gold);
+            float: left;
+            line-height: 2.5rem;
+            margin-right: 8px;
+            margin-top: 4px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .commandment-list {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(244, 241, 232, 0.2) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .commandment-item {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .commandment-item::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+        
+        .hodl {
+            font-weight: 700;
+            color: var(--bronze);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .bitcoin-symbol {
+            color: var(--gold);
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .verse-number {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            color: var(--bronze);
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+        }
+        
+        .decorative-border {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 2rem 0;
+            border-radius: 2px;
+        }
+        
+        .footer-blessing {
+            text-align: center;
+            font-style: italic;
+            color: var(--rich-brown);
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 10px;
+            border: 1px dashed var(--gold);
+        }
+        
+        .responsive-padding {
+            padding: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-title { font-size: 2rem; }
+            .chapter-title { font-size: 1.4rem; }
+            .scripture-text { font-size: 1rem; }
+            .responsive-padding { padding: 1rem; }
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-5">
+        <div class="scripture-container responsive-padding">
+            <h1 class="main-title">THE SCRIPTURES OF <span class="bitcoin-symbol">₿</span>ITCOIN</h1>
+            
+            <div class="decorative-border"></div>
+            
+            <section>
+                <h2 class="chapter-title">GENESIS: THE ORIGINAL BLOCK</h2>
+                <p class="scripture-text">
+                    In the beginning, the world was plunged into financial darkness, controlled by centralized banks and governments. And then, in the year 2008, an anonymous prophet, Satoshi Nakamoto, delivered the sacred Whitepaper to the world: "Bitcoin: A Peer-to-Peer Electronic Cash System."
+                </p>
+                <p class="scripture-text">
+                    And in the year 2009, the Genesis Block was mined, the first link in an incorruptible chain, and inscribed in its code was the prophetic message: "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks." And thus, the network was born, illuminating the path for men and women towards financial sovereignty.
+                </p>
+            </section>
+            
+            <div class="decorative-border"></div>
+            
+            <section>
+                <h2 class="chapter-title">THE COMMANDMENTS OF THE BITCOINER</h2>
+                <div class="commandment-list">
+                    <div class="commandment-item">You shall not trust, you shall verify.</div>
+                    <div class="commandment-item">You shall guard your private key as a sacred treasure.</div>
+                    <div class="commandment-item">You shall not use inflationary currencies nor submit to uncontrolled money printing.</div>
+                    <div class="commandment-item">You shall honor decentralization and distrust centralized authority.</div>
+                    <div class="commandment-item">You shall share the knowledge of Bitcoin with those who seek the truth.</div>
+                    <div class="commandment-item">You shall not store your satoshis on centralized exchanges.</div>
+                    <div class="commandment-item">You shall use the Lightning Network for fast and inexpensive transactions.</div>
+                    <div class="commandment-item">You shall not fall into the greed of altcoins, for there is only one true Bitcoin.</div>
+                    <div class="commandment-item">You shall not sell your soul for fiat, but you shall <span class="hodl">hodl</span> with conviction.</div>
+                    <div class="commandment-item">You shall defend privacy, for surveillance is the tool of the oppressor.</div>
+                </div>
+            </section>
+            
+            <div class="decorative-border"></div>
+            
+            <section>
+                <h2 class="chapter-title">THE PATH OF THE SATOSHI</h2>
+                <p class="scripture-text">
+                    The true bitcoiner does not pursue immediate riches, but long-term financial freedom. They do not fear volatility, for they understand that price is fleeting, but the revolution is eternal. They learn, teach, and build; they do not merely consume. They run their own node and verify their own transactions. They understand that Proof of Work is the only valid sacrifice for the validation of truth.
+                </p>
+            </section>
+            
+            <div class="decorative-border"></div>
+            
+            <section>
+                <h2 class="chapter-title">THE PROMISE OF 21 MILLION</h2>
+                <p class="scripture-text">
+                    Just as in nature there are limited resources, Bitcoin is scarce, for there will never be more than 21 million. He who understands the scarcity of Bitcoin will understand the value of time and effort. You shall mine with effort, <span class="hodl">hodl</span> with patience, and transact with wisdom.
+                </p>
+            </section>
+            
+            <div class="decorative-border"></div>
+            
+            <section>
+                <h2 class="chapter-title">THE FIAT APOCALYPSE</h2>
+                <p class="scripture-text">
+                    The day will come when fiat currencies will lose all their value, for they have been inflated to destruction. Those who trusted banks and governments will lament their blindness. But bitcoiners, the righteous of the digital age, will witness the rebirth of the free and decentralized economy.
+                </p>
+                <p class="scripture-text">
+                    On that day, those who <span class="hodl">hodled</span> with faith will be rewarded and will guide the newcomers towards the light of financial sovereignty.
+                </p>
+            </section>
+            
+            <div class="footer-blessing">
+                <p><strong>May your private keys be secure, your transactions swift, and your <span class="hodl">hodl</span> eternal.</strong></p>
+                <p class="bitcoin-symbol">₿ In Satoshi We Trust ₿</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="scroll-indicator">
+        <i class="fas fa-bitcoin-sign" style="color: white;"></i>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add smooth scrolling and interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+            
+            // Scroll indicator click
+            document.querySelector('.scroll-indicator').addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

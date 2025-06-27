@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal UI - Certificate Types</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --primary-bg: #0f0f0f;
+            --secondary-bg: #1a1a1a;
+            --accent-bg: #2d2d2d;
+            --primary-text: #00ff00;
+            --secondary-text: #ffffff;
+            --accent-text: #ffff00;
+            --border-color: #333333;
+            --glow-color: #00ff0050;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--primary-bg);
+            color: var(--secondary-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .terminal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .terminal-window {
+            background: var(--secondary-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .terminal-header {
+            background: var(--accent-bg);
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .terminal-buttons {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .close { background: #ff5f56; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #27ca3f; }
+        
+        .terminal-title {
+            margin-left: 15px;
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+        
+        .terminal-content {
+            padding: 30px;
+            background: var(--primary-bg);
+        }
+        
+        .prompt-line {
+            color: var(--primary-text);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .prompt-symbol {
+            color: var(--accent-text);
+        }
+        
+        .main-title {
+            color: var(--primary-text);
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px var(--glow-color);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--glow-color); }
+            to { text-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+        }
+        
+        .certificate-grid {
+            display: grid;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .certificate-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-text);
+            padding: 20px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .certificate-card:hover {
+            border-left-color: var(--accent-text);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-text), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .certificate-card:hover::before {
+            opacity: 1;
+        }
+        
+        .certificate-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .certificate-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 5px currentColor);
+        }
+        
+        .certificate-title {
+            color: var(--primary-text);
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-shadow: 0 0 5px var(--glow-color);
+        }
+        
+        .certificate-description {
+            color: var(--secondary-text);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            padding-left: 10px;
+            border-left: 2px solid var(--accent-bg);
+            margin-left: 10px;
+        }
+        
+        .command-hint {
+            margin-top: 40px;
+            padding: 15px;
+            background: var(--accent-bg);
+            border-radius: 4px;
+            border-left: 4px solid var(--accent-text);
+        }
+        
+        .command-hint .prompt {
+            color: var(--accent-text);
+            font-weight: 700;
+        }
+        
+        .blinking-cursor {
+            animation: blink 1s infinite;
+            color: var(--primary-text);
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .ascii-art {
+            color: var(--primary-text);
+            font-size: 0.8rem;
+            text-align: center;
+            margin: 20px 0;
+            opacity: 0.7;
+            white-space: pre;
+        }
+        
+        @media (max-width: 768px) {
+            .terminal-container {
+                padding: 10px;
+            }
+            
+            .terminal-content {
+                padding: 20px;
+            }
+            
+            .main-title {
+                font-size: 1.5rem;
+            }
+            
+            .certificate-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .certificate-icon {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <div class="terminal-button close"></div>
+                    <div class="terminal-button minimize"></div>
+                    <div class="terminal-button maximize"></div>
+                </div>
+                <div class="terminal-title">certificate_system.sh</div>
+            </div>
+            
+            <div class="terminal-content">
+                <div class="prompt-line">
+                    <span class="prompt-symbol">$</span> ./display_certificates.sh --category=all
+                </div>
+                
+                <div class="ascii-art">
+    ╔══════════════════════════════════════╗
+    ║           CERTIFICATE SYSTEM         ║
+    ║              STATUS: ACTIVE          ║
+    ╚══════════════════════════════════════╝
+                </div>
+                
+                <h1 class="main-title">TYPES OF CERTIFICATES</h1>
+                
+                <div class="certificate-grid">
+                    <div class="certificate-card">
+                        <div class="certificate-header">
+                            <div class="certificate-icon">📜</div>
+                            <div class="certificate-title">Satoshi Initiation Certificate</div>
+                        </div>
+                        <div class="certificate-description">
+                            For those who complete Level 1 of the Satoshi Academy (Bitcoin fundamentals, basic privacy, wallet usage).
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-card">
+                        <div class="certificate-header">
+                            <div class="certificate-icon">🛡️</div>
+                            <div class="certificate-title">Guardian of the Node</div>
+                        </div>
+                        <div class="certificate-description">
+                            Awarded to those who install and maintain a Bitcoin or Nostr node.
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-card">
+                        <div class="certificate-header">
+                            <div class="certificate-icon">🧠</div>
+                            <div class="certificate-title">Itinerant Evangelist</div>
+                        </div>
+                        <div class="certificate-description">
+                            For those who spread the decentralized gospel in physical spaces (tuk tuk, events, talks).
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-card">
+                        <div class="certificate-header">
+                            <div class="certificate-icon">🔐</div>
+                            <div class="certificate-title">Artisan of Freedom</div>
+                        </div>
+                        <div class="certificate-description">
+                            For contributors who develop tools, write guides, conduct research, or report relevant bugs.
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-card">
+                        <div class="certificate-header">
+                            <div class="certificate-icon">🕊️</div>
+                            <div class="certificate-title">Sermonist of the Code</div>
+                        </div>
+                        <div class="certificate-description">
+                            Given for writing and sharing sermons within the Temple's liturgy.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="command-hint">
+                    <div class="prompt-line">
+                        <span class="prompt">INFO:</span> Certificate system initialized successfully
+                    </div>
+                    <div class="prompt-line">
+                        <span class="prompt">NEXT:</span> Run './award_certificate.sh --user=[username] --type=[certificate_type]' to issue certificates
+                    </div>
+                    <div class="prompt-line">
+                        <span class="prompt-symbol">$</span> <span class="blinking-cursor">█</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Add some terminal-like interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.certificate-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.borderLeftColor = '#ffff00';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.borderLeftColor = '#00ff00';
+                });
+            });
+            
+            // Add typing effect to the cursor
+            const cursor = document.querySelector('.blinking-cursor');
+            if (cursor) {
+                let visible = true;
+                setInterval(() => {
+                    cursor.style.opacity = visible ? '0' : '1';
+                    visible = !visible;
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>

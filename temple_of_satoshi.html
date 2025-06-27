@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temple of Satoshi - Saints and Heretics</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bitcoin-orange: #f7931a;
+            --bitcoin-dark: #2d2d2d;
+            --gold: #ffd700;
+            --hell-red: #dc3545;
+            --geometric-blue: #0d6efd;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+        }
+
+        .geometric-header {
+            background: linear-gradient(45deg, var(--bitcoin-orange), var(--gold));
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .geometric-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,0 100,50 50,100 0,50" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.3;
+        }
+
+        .geometric-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .geometric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(247, 147, 26, 0.3);
+        }
+
+        .geometric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--bitcoin-orange), var(--gold));
+        }
+
+        .saint-card {
+            border-left: 4px solid var(--gold);
+        }
+
+        .hell-card {
+            border-left: 4px solid var(--hell-red);
+        }
+
+        .geometric-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--bitcoin-orange), var(--gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .geometric-icon::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(247, 147, 26, 0.3);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--bitcoin-orange), var(--gold));
+        }
+
+        .bitcoin-symbol {
+            font-size: 1.5rem;
+            color: var(--bitcoin-orange);
+            margin-right: 0.5rem;
+        }
+
+        .geometric-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--bitcoin-orange), transparent);
+            margin: 4rem 0;
+        }
+
+        .saint-badge {
+            background: linear-gradient(45deg, var(--gold), #ffed4a);
+            color: #000;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .hell-badge {
+            background: linear-gradient(45deg, var(--hell-red), #ff6b6b);
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .geometric-footer {
+            background: var(--bitcoin-dark);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-elements::before {
+            content: '₿';
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(247, 147, 26, 0.1);
+            animation: float 6s ease-in-out infinite;
+            top: 20%;
+            left: 10%;
+        }
+
+        .floating-elements::after {
+            content: '⛪';
+            position: absolute;
+            font-size: 1.5rem;
+            color: rgba(255, 215, 0, 0.1);
+            animation: float 8s ease-in-out infinite reverse;
+            top: 60%;
+            right: 15%;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .person-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--bitcoin-orange);
+            transition: all 0.3s ease;
+        }
+
+        .person-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .person-name {
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .person-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements"></div>
+
+    <!-- Header -->
+    <header class="geometric-header">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h1 class="display-3 fw-bold mb-3">⛪ THE TEMPLE OF SATOSHI ⛪</h1>
+                    <p class="lead fs-4">Saints and Heretics of the Bitcoin Revolution</p>
+                    <div class="mt-4">
+                        <span class="bitcoin-symbol">₿</span>
+                        <span class="fs-5">"May their private keys be remembered and their legacy never forgotten"</span>
+                        <span class="bitcoin-symbol">₿</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Saints Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title text-warning">🏆 THE SAINTS OF THE BROTHERHOOD 🏆</h2>
+            
+            <!-- Foundational Saints -->
+            <div class="geometric-card saint-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon">
+                            <i class="fas fa-crown text-white fs-3"></i>
+                        </div>
+                        <span class="saint-badge">FOUNDATIONAL</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-warning mb-3">🏆 Foundational Saints (Precursors and Visionaries)</h3>
+                        
+                        <div class="person-card">
+                            <div class="person-name">Tim May (Saint Timothy of Crypto-Anarchy)</div>
+                            <div class="person-description">
+                                Author of The Crypto Anarchist Manifesto, which inspired the cypherpunk movement. Advocate for the use of cryptography for individual liberty.
+                            </div>
+                        </div>
+
+                        <div class="person-card">
+                            <div class="person-name">Eric Hughes (Saint Eric of the Manifesto)</div>
+                            <div class="person-description">
+                                Author of A Cypherpunk's Manifesto, establishing the principles of digital privacy.
+                            </div>
+                        </div>
+
+                        <div class="person-card">
+                            <div class="person-name">David Chaum (Saint David of Private Money)</div>
+                            <div class="person-description">
+                                Creator of DigiCash, the first serious attempt at anonymous digital money. Inspired many of the ideas that Bitcoin would make a reality.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Martyr Saints -->
+            <div class="geometric-card saint-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon">
+                            <i class="fas fa-fire text-white fs-3"></i>
+                        </div>
+                        <span class="saint-badge">MARTYRS</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-warning mb-3">🔥 Martyr Saints (Persecuted, Defamed, or Fallen for Their Ideals)</h3>
+                        
+                        <div class="person-card">
+                            <div class="person-name">Ross Ulbricht (Saint Ross, Martyr of Free Markets)</div>
+                            <div class="person-description">
+                                Creator of Silk Road, sentenced to life imprisonment for enabling free markets on the darknet. His case demonstrated the power and threat of decentralized money to governments.
+                            </div>
+                        </div>
+
+                        <div class="person-card">
+                            <div class="person-name">Aaron Swartz (Saint Aaron of Free Knowledge)</div>
+                            <div class="person-description">
+                                Activist for free information and open access to education. Took his own life after being persecuted by the U.S. government for sharing academic information.
+                            </div>
+                        </div>
+
+                        <div class="person-card">
+                            <div class="person-name">Julian Assange (Saint Julian, Guardian of Truth)</div>
+                            <div class="person-description">
+                                Founder of WikiLeaks, the first site to accept Bitcoin out of necessity to resist banking censorship. His arrest symbolizes the struggle against information control.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saints of Adoption -->
+            <div class="geometric-card saint-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon">
+                            <i class="fas fa-rocket text-white fs-3"></i>
+                        </div>
+                        <span class="saint-badge">EVANGELISTS</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-warning mb-3">🚀 Saints of Adoption and Dissemination</h3>
+                        
+                        <div class="person-card">
+                            <div class="person-name">Max Keiser (Saint Maximus of Maximalism)</div>
+                            <div class="person-description">
+                                One of the first to promote Bitcoin on television. Bitcoin investor from its early years.
+                            </div>
+                        </div>
+
+                        <div class="person-card">
+                            <div class="person-name">Michael Saylor (Saint Michael of the Bitcoin Treasury)</div>
+                            <div class="person-description">
+                                CEO of MicroStrategy, convinced many companies to convert their capital into Bitcoin. Promotes the accumulation and corporate use of Bitcoin as a store of value.
+                            </div>
+                        </div>
+
+                        <div class="person-card">
+                            <div class="person-name">Samourai Wallet (The Saints of On-Chain Privacy)</div>
+                            <div class="person-description">
+                                Creators of one of the most advanced wallets for Bitcoin privacy.
+                            </div>
+                        </div>
+
+                        <div class="person-card">
+                            <div class="person-name">Edward Snowden (Saint Edmund of Revelation)</div>
+                            <div class="person-description">
+                                Former NSA agent, revealed massive government surveillance. Has promoted Bitcoin as a tool for privacy.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saints of Resistance -->
+            <div class="geometric-card saint-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon">
+                            <i class="fas fa-flag text-white fs-3"></i>
+                        </div>
+                        <span class="saint-badge">REBELS</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-warning mb-3">🏴 Saints of Resistance and Rebellion</h3>
+                        
+                        <div class="person-card">
+                            <div class="person-name">Cody Wilson (Saint Cody of Free Code)</div>
+                            <div class="person-description">
+                                Creator of Defense Distributed, promoted 3D-printed weapons as a defense against government control. Believes in the individual's total sovereignty.
+                            </div>
+                        </div>
+
+                        <div class="person-card">
+                            <div class="person-name">Kim Dotcom (Saint Kim of Decentralization)</div>
+                            <div class="person-description">
+                                Founder of MegaUpload, persecuted for challenging large tech corporations. Promotes Bitcoin as an alternative to traditional payment systems.
+                            </div>
+                        </div>
+
+                        <div class="person-card">
+                            <div class="person-name">Amir Taaki (Saint Amir of the Rebel Code)</div>
+                            <div class="person-description">
+                                Dark Wallet developer and promoter of using Bitcoin to resist state control.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="geometric-divider"></div>
+
+    <!-- Hell Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title text-danger">🔥 FIAT HELL - THE HERETICS 🔥</h2>
+            
+            <!-- Central Bankers -->
+            <div class="geometric-card hell-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon" style="background: linear-gradient(45deg, var(--hell-red), #ff6b6b);">
+                            <i class="fas fa-university text-white fs-3"></i>
+                        </div>
+                        <span class="hell-badge">BANKERS</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-danger mb-3">🏦 The Central Bankers</h3>
+                        <p>Those who advocate for the infinite issuance of fiat money, uncontrolled inflation, and absolute financial control. Any bureaucrat who prints unsupported money.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Altcoiners -->
+            <div class="geometric-card hell-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon" style="background: linear-gradient(45deg, var(--hell-red), #ff6b6b);">
+                            <i class="fas fa-coins text-white fs-3"></i>
+                        </div>
+                        <span class="hell-badge">SHITCOINERS</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-danger mb-3">🪙 The Altcoiners and Shitcoiners</h3>
+                        <p>Creators and promoters of centralized, pre-mined cryptocurrencies with opaque control mechanisms. Examples: Do Kwon (Terra/Luna), Sam Bankman-Fried (FTX), Vitalik Buterin (Ethereum).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regulators -->
+            <div class="geometric-card hell-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon" style="background: linear-gradient(45deg, var(--hell-red), #ff6b6b);">
+                            <i class="fas fa-gavel text-white fs-3"></i>
+                        </div>
+                        <span class="hell-badge">REGULATORS</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-danger mb-3">📜 The Anti-Bitcoin Regulators</h3>
+                        <p>Governments and bodies that try to stifle Bitcoin adoption with extreme regulations and persecution of cypherpunks. Examples: SEC, FATF, authoritarian governments that ban Bitcoin.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KYC/AML Guardians -->
+            <div class="geometric-card hell-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon" style="background: linear-gradient(45deg, var(--hell-red), #ff6b6b);">
+                            <i class="fas fa-eye text-white fs-3"></i>
+                        </div>
+                        <span class="hell-badge">SURVEILLANCE</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-danger mb-3">🕵️ The KYC/AML Guardians</h3>
+                        <p>Those who demand that every Bitcoin transaction be traced, eliminating financial privacy. Companies that sell user data to governments and banking entities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Faketoshis -->
+            <div class="geometric-card hell-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon" style="background: linear-gradient(45deg, var(--hell-red), #ff6b6b);">
+                            <i class="fas fa-mask text-white fs-3"></i>
+                        </div>
+                        <span class="hell-badge">FRAUDS</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-danger mb-3">🤡 The Faketoshis and False Prophets</h3>
+                        <p>Individuals who claim to be Satoshi Nakamoto or try to appropriate Bitcoin's legacy with lies. Example: Craig Wright, Calvin Ayre.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESG-Coiners -->
+            <div class="geometric-card hell-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon" style="background: linear-gradient(45deg, var(--hell-red), #ff6b6b);">
+                            <i class="fas fa-leaf text-white fs-3"></i>
+                        </div>
+                        <span class="hell-badge">ESG WARRIORS</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-danger mb-3">🌱 The ESG-Coiners and "Green Bitcoin"</h3>
+                        <p>Those who try to enforce anti-mining narratives, promoting bans or taxes against Bitcoin's energy consumption. European politicians seeking to ban PoW mining.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediaries -->
+            <div class="geometric-card hell-card">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <div class="geometric-icon" style="background: linear-gradient(45deg, var(--hell-red), #ff6b6b);">
+                            <i class="fas fa-chain text-white fs-3"></i>
+                        </div>
+                        <span class="hell-badge">CBDC PUSHERS</span>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="text-danger mb-3">🔗 The Intermediaries of Control</h3>
+                        <p>Advocates of CBDCs (Central Bank Digital Currencies) and systems that seek to eliminate Bitcoin self-custody. Example: People's Bank of China with the Digital Yuan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="geometric-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3 class="text-warning mb-3">⛪🔥 THE ETERNAL STRUGGLE 🔥⛪</h3>
+                    <p class="lead">The Saints fight for financial sovereignty and freedom</p>
+                    <p class="lead">The Heretics suffer in eternal centralization, hyperinflation, and draconian control</p>
+                    <div class="mt-4">
+                        <span class="bitcoin-symbol">₿</span>
+                        <span class="fs-6 text-warning">"In Satoshi We Trust"</span>
+                        <span class="bitcoin-symbol">₿</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

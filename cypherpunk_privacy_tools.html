@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYPHERPUNK ARSENAL - PRIVACY TOOLS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            font-family: 'Share Tech Mono', monospace;
+            color: #00ff41;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Matrix rain effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="10" font-size="8" fill="%23003300" opacity="0.1">01010101</text><text y="20" font-size="8" fill="%23003300" opacity="0.1">11001100</text><text y="30" font-size="8" fill="%23003300" opacity="0.1">10101010</text></svg>') repeat;
+            animation: matrix-rain 20s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes matrix-rain {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff41, transparent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #00ff41;
+            text-shadow: 0 0 20px #00ff41, 0 0 40px #00ff41;
+            margin-bottom: 10px;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ff41, 0 0 40px #00ff41; }
+            to { text-shadow: 0 0 30px #00ff41, 0 0 60px #00ff41, 0 0 80px #00ff41; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ff6b35;
+            text-shadow: 0 0 10px #ff6b35;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            background: rgba(0, 20, 40, 0.8);
+            border: 2px solid #00ff41;
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 255, 65, 0.1);
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 255, 65, 0.3);
+            border-color: #ff6b35;
+        }
+
+        .category::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff41, #ff6b35, #00ff41);
+            border-radius: 15px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category:hover::before {
+            opacity: 0.3;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .category-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #00ff41;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .category-description {
+            font-size: 0.9rem;
+            color: #88ccaa;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tool-item {
+            background: rgba(0, 40, 80, 0.6);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tool-item:hover {
+            background: rgba(0, 60, 120, 0.8);
+            border-color: #ff6b35;
+            transform: translateX(5px);
+        }
+
+        .tool-name {
+            font-weight: bold;
+            color: #00ff41;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px #00ff41;
+        }
+
+        .tool-description {
+            color: #bbddcc;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .tool-item::after {
+            content: '→';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff6b35;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tool-item:hover::after {
+            opacity: 1;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            border-top: 2px solid rgba(0, 255, 65, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+        }
+
+        .footer-text {
+            color: #88ccaa;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px #88ccaa;
+        }
+
+        .scanner-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff41, transparent);
+            animation: scan 8s linear infinite;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-2px); }
+            100% { transform: translateY(100vh); }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .category {
+                padding: 20px;
+            }
+        }
+
+        /* Glitch effect */
+        .glitch {
+            animation: glitch 0.3s linear infinite;
+        }
+
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanner-line"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="glitch">🔥 CYPHERPUNK ARSENAL</h1>
+            <div class="subtitle">// PRIVACY TOOLS & DIGITAL FREEDOM //</div>
+        </div>
+
+        <div class="grid">
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon">🔎</div>
+                    <div class="category-title">Anonymous Browse & Networks</div>
+                </div>
+                <div class="category-description">Tools for browsing and accessing the web without leaving a trace.</div>
+                <div class="tools-list">
+                    <div class="tool-item">
+                        <div class="tool-name">Tor Browser</div>
+                        <div class="tool-description">Firefox-based browser that routes traffic through Tor</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">I2P (Invisible Internet Project)</div>
+                        <div class="tool-description">Alternative network to Tor for anonymous communications</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Mullvad Browser</div>
+                        <div class="tool-description">Browser with fingerprint minimization that doesn't rely on Tor</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">LibreWolf</div>
+                        <div class="tool-description">Modified Firefox without telemetry and enhanced privacy</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Brave</div>
+                        <div class="tool-description">Browser with ad blocker and integrated Tor network</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Yggdrasil</div>
+                        <div class="tool-description">Decentralized and anonymous mesh network</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">ZeroNet</div>
+                        <div class="tool-description">Decentralized platform based on BitTorrent and cryptography</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Lokinet</div>
+                        <div class="tool-description">Private browsing using Onion Routing, different from Tor</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Freifunk</div>
+                        <div class="tool-description">Community mesh network to avoid censorship</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon">🖥️</div>
+                    <div class="category-title">Secure Operating Systems</div>
+                </div>
+                <div class="category-description">OS designed for maximum security and anonymity.</div>
+                <div class="tools-list">
+                    <div class="tool-item">
+                        <div class="tool-name">Qubes OS</div>
+                        <div class="tool-description">System based on virtual compartments for maximum security</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Tails OS</div>
+                        <div class="tool-description">Live operating system that forces all traffic through Tor</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Whonix</div>
+                        <div class="tool-description">Debian-based distribution with forced Tor connection</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Kodachi Linux</div>
+                        <div class="tool-description">Extreme privacy system with integrated VPN</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">GrapheneOS</div>
+                        <div class="tool-description">Secure Android without Google</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">CalyxOS</div>
+                        <div class="tool-description">Android with enhanced privacy and microG to reduce tracking</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">LineageOS</div>
+                        <div class="tool-description">Open-source Android without Google</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">PureOS</div>
+                        <div class="tool-description">Purism's OS with a focus on privacy</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon">📬</div>
+                    <div class="category-title">Secure Messaging</div>
+                </div>
+                <div class="category-description">Private and encrypted messaging apps.</div>
+                <div class="tools-list">
+                    <div class="tool-item">
+                        <div class="tool-name">Session</div>
+                        <div class="tool-description">Anonymous P2P messaging without central servers</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">SimpleX Chat</div>
+                        <div class="tool-description">Server-less chat for maximum privacy</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Briar</div>
+                        <div class="tool-description">P2P chat that works without internet using Bluetooth or direct Wi-Fi</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Element (Matrix)</div>
+                        <div class="tool-description">Decentralized messaging with end-to-end encryption</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Cwtch</div>
+                        <div class="tool-description">Decentralized chat based on Tor</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Jabber/XMPP + OMEMO</div>
+                        <div class="tool-description">Decentralized messaging with optional encryption</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Delta Chat</div>
+                        <div class="tool-description">Email-based chat with E2EE encryption</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Threema</div>
+                        <div class="tool-description">Messaging with strong security and no phone number required</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Jami</div>
+                        <div class="tool-description">Decentralized P2P chat without servers</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon">📧</div>
+                    <div class="category-title">Secure Email</div>
+                </div>
+                <div class="category-description">Private and untraceable emails.</div>
+                <div class="tools-list">
+                    <div class="tool-item">
+                        <div class="tool-name">ProtonMail</div>
+                        <div class="tool-description">Encrypted email with servers in Switzerland</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Tuta (formerly Tutanota)</div>
+                        <div class="tool-description">Encrypted email with servers in Germany</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Posteo</div>
+                        <div class="tool-description">Private and anonymous email</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Mailfence</div>
+                        <div class="tool-description">Alternative with PGP encryption</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">RiseUp Mail</div>
+                        <div class="tool-description">Email for activists with strong privacy</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Disroot</div>
+                        <div class="tool-description">Private email with a cypherpunk philosophy</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon">🔒</div>
+                    <div class="category-title">Encryption & Storage</div>
+                </div>
+                <div class="category-description">File protection and decentralized storage.</div>
+                <div class="tools-list">
+                    <div class="tool-item">
+                        <div class="tool-name">CryptPad</div>
+                        <div class="tool-description">Encrypted collaborative documents</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Nextcloud</div>
+                        <div class="tool-description">Private storage on self-hosted servers</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">LUKS</div>
+                        <div class="tool-description">Disk encryption for Linux</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">VeraCrypt</div>
+                        <div class="tool-description">Disk encryption for Windows, macOS, and Linux</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">OnionShare</div>
+                        <div class="tool-description">Share files anonymously via Tor</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Filecoin</div>
+                        <div class="tool-description">Decentralized storage on a blockchain</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Storj</div>
+                        <div class="tool-description">Decentralized alternative to Google Drive</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Syncthing</div>
+                        <div class="tool-description">Private synchronization without third-party servers</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon">🛡️</div>
+                    <div class="category-title">Anonymization Tools</div>
+                </div>
+                <div class="category-description">For minimizing tracking and extreme anonymity.</div>
+                <div class="tools-list">
+                    <div class="tool-item">
+                        <div class="tool-name">Tinfoil Chat (TFC)</div>
+                        <div class="tool-description">Ultra-secure messaging with hardware separation</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">MacChanger</div>
+                        <div class="tool-description">Changes MAC address to prevent tracking</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">BleachBit</div>
+                        <div class="tool-description">Permanently deletes data from disk</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">MAT2</div>
+                        <div class="tool-description">Metadata Anonymization Toolkit - erases metadata from files</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">ExifCleaner</div>
+                        <div class="tool-description">Lightweight alternative for removing metadata</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Obfuscate</div>
+                        <div class="tool-description">Erases information in images</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon">🛰️</div>
+                    <div class="category-title">Private Finance</div>
+                </div>
+                <div class="category-description">Tools for secure, surveillance-resistant transactions.</div>
+                <div class="tools-list">
+                    <div class="tool-item">
+                        <div class="tool-name">Samourai Wallet</div>
+                        <div class="tool-description">Wallet with CoinJoin and Whirlpool</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Wasabi Wallet</div>
+                        <div class="tool-description">Wallet with CoinJoin for private Bitcoin</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">JoinMarket</div>
+                        <div class="tool-description">Trustless P2P CoinJoin</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Phoenix Wallet</div>
+                        <div class="tool-description">Lightning wallet with enhanced privacy</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Cashu</div>
+                        <div class="tool-description">eCash on Bitcoin for anonymous payments</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Fedi / Fedimint</div>
+                        <div class="tool-description">Community custody with strong privacy</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Breez Wallet</div>
+                        <div class="tool-description">Decentralized Lightning wallet</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Silent Payments</div>
+                        <div class="tool-description">New privacy scheme for Bitcoin addresses</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon">🎭</div>
+                    <div class="category-title">Digital Identity</div>
+                </div>
+                <div class="category-description">Tools to avoid digital surveillance.</div>
+                <div class="tools-list">
+                    <div class="tool-item">
+                        <div class="tool-name">NoScript</div>
+                        <div class="tool-description">Blocks scripts in browsers</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Privacy Badger</div>
+                        <div class="tool-description">Anti-tracking by the EFF</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">uBlock Origin</div>
+                        <div class="tool-description">Ad and tracker blocker</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">DuckDuckGo</div>
+                        <div class="tool-description">Private search engine without tracking</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Startpage</div>
+                        <div class="tool-description">Google results without tracking</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Mojeek</div>
+                        <div class="tool-description">Search engine with its own index</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon">💾</div>
+                    <div class="category-title">Hardware Security</div>
+                </div>
+                <div class="category-description">Physical devices to enhance privacy.</div>
+                <div class="tools-list">
+                    <div class="tool-item">
+                        <div class="tool-name">🔐 Hardware Wallets</div>
+                        <div class="tool-description">Passport, Coldcard, SeedSigner</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">📱 Librem 5</div>
+                        <div class="tool-description">Linux phone with physical privacy kill switches</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">GrapheneOS (Pixel)</div>
+                        <div class="tool-description">Android without Google and maximum security</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">🌐 Raspberry Pi + Pi-Hole</div>
+                        <div class="tool-description">Network-level tracker blocking</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">Flipper Zero</div>
+                        <div class="tool-description">Device for security auditing and radio frequency</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-name">NitroPhone</div>
+                        <div class="tool-description">Pixel with GrapheneOS optimized for privacy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-text">
+                // DIGITAL FREEDOM IS NOT A PRIVILEGE - IT'S A RIGHT //
+                <br>
+                [ STAY ANONYMOUS • STAY SECURE • STAY FREE ]
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Glitch effect on title
+            const title = document.querySelector('h1');
+            setInterval(() => {
+                title.classList.add('glitch');
+                setTimeout(() => title.classList.remove('glitch'), 200);
+            }, 3000);
+
+            // Tool item click effects
+            document.querySelectorAll('.tool-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => this.style.transform = '', 150);
+                });
+            });
+
+            // Random matrix effect
+            function createMatrixChar() {
+                const chars = '01';
+                const char = document.createElement('div');
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.position = 'fixed';
+                char.style.left = Math.random() * 100 + 'vw';
+                char.style.top = '-20px';
+                char.style.color = '#003300';
+                char.style.fontSize = '12px';
+                char.style.fontFamily = 'Share Tech Mono';
+                char.style.pointerEvents = 'none';
+                char.style.zIndex = '-1';
+                char.style.animation = 'fall 8s linear forwards';
+                document.body.appendChild(char);
+
+                setTimeout(() => char.remove(), 8000);
+            }
+
+            // Add CSS for falling animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fall {
+                    to { transform: translateY(100vh); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Create matrix characters periodically
+            setInterval(createMatrixChar, 200);
+        });
+    </script>
+</body>
+</html>

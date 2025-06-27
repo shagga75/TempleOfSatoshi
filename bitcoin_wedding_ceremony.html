@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Wedding Ceremony | Node to Node, Heart to Heart</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bitcoin-orange: #f7931a;
+            --bitcoin-dark: #4d4d4d;
+            --gold-gradient: linear-gradient(135deg, #f7931a, #ffb347);
+            --dark-gradient: linear-gradient(135deg, #2c3e50, #34495e);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-gradient);
+            color: #fff;
+            line-height: 1.7;
+        }
+
+        .hero-section {
+            background: var(--gold-gradient);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: #34495e;
+            margin-bottom: 2rem;
+        }
+
+        .ceremony-section {
+            padding: 80px 0;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .step-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(247,147,26,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(247,147,26,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .step-card:hover::before {
+            left: 100%;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(247,147,26,0.2);
+            border-color: var(--bitcoin-orange);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--gold-gradient);
+            color: #2c3e50;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            color: var(--bitcoin-orange);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .vow-example {
+            background: rgba(247,147,26,0.1);
+            border-left: 4px solid var(--bitcoin-orange);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: #ffb347;
+        }
+
+        .celebration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .celebration-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(247,147,26,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .celebration-item:hover {
+            background: rgba(247,147,26,0.1);
+            transform: scale(1.05);
+        }
+
+        .contact-btn {
+            background: var(--gold-gradient);
+            border: none;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 15px 40px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(247,147,26,0.3);
+            margin-top: 3rem;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(247,147,26,0.4);
+            color: #1a252f;
+        }
+
+        .footer-quote {
+            text-align: center;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--bitcoin-orange);
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(247,147,26,0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(247,147,26,0.3);
+        }
+
+        .contact-form {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(247,147,26,0.3);
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .form-control {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(247,147,26,0.3);
+            color: #fff;
+            border-radius: 10px;
+            padding: 12px 15px;
+        }
+
+        .form-control:focus {
+            background: rgba(255,255,255,0.15);
+            border-color: var(--bitcoin-orange);
+            color: #fff;
+            box-shadow: 0 0 0 0.2rem rgba(247,147,26,0.25);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .form-label {
+            color: var(--bitcoin-orange);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .step-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-10">
+                    <h1 class="hero-title">⚡ Bitcoin Wedding Ceremony ⚡</h1>
+                    <p class="hero-subtitle">Node to Node, Heart to Heart</p>
+                    <p class="lead" style="color: #2c3e50; font-size: 1.2rem;">A ceremony that blends the sacredness of love with the spirit of financial revolution</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Step 1: Preparation -->
+        <div class="ceremony-section">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h2 class="step-title">🧡 Preparation</h2>
+                <div class="step-content">
+                    <p>Before the ceremony, the couple chooses a shared seed word, symbolizing their bond and mutual trust. Together, they create a multisig wallet, where both must sign to authorize transactions — a powerful act of co-responsibility.</p>
+                    <p>Guests are invited to participate by sending sats as blessings via a special Lightning QR code created for the occasion. Each contribution represents a wish for lasting love and prosperity.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Opening -->
+        <div class="ceremony-section">
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h2 class="step-title">🙏 Opening of the Ceremony</h2>
+                <div class="step-content">
+                    <p>The BitPriest, acting as the officiant, opens the ceremony with a reflection on how Bitcoin values apply to marriage:</p>
+                    <ul class="mt-3">
+                        <li><strong>Decentralization:</strong> two sovereign individuals choosing to walk together</li>
+                        <li><strong>Immutability:</strong> a commitment sealed over time</li>
+                        <li><strong>Financial sovereignty:</strong> trust without intermediaries</li>
+                    </ul>
+                    <p class="mt-3">A Bitcoiner Love Manifesto is then read aloud, honoring mutual privacy, responsibility, and self-sovereignty in the relationship.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Vows -->
+        <div class="ceremony-section">
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h2 class="step-title">💬 Exchange of Vows</h2>
+                <div class="step-content">
+                    <p>The couple exchanges personalized vows inspired by the world of Bitcoin. For example:</p>
+                    <div class="vow-example">
+                        "I promise to share my private keys only in times of true necessity, and to HODL with you through bull and bear markets."
+                    </div>
+                    <div class="vow-example">
+                        "I vow not to be an unbacked paper promise in your life, but a solid block in your emotional blockchain."
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Transaction -->
+        <div class="ceremony-section">
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h2 class="step-title">🔁 Symbolic Transaction</h2>
+                <div class="step-content">
+                    <p>As a symbol of their union, the couple sends a joint Bitcoin transaction, representing the merging of their paths and futures.</p>
+                    <p>Optionally, multiple couples can batch their transactions together to optimize fees — love, after all, should be efficient too.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Nostr Record -->
+        <div class="ceremony-section">
+            <div class="step-card">
+                <div class="step-number">5</div>
+                <h2 class="step-title">📝 Ceremony Record on Nostr</h2>
+                <div class="step-content">
+                    <p>Instead of inscribing data on the public chain, the ceremony is recorded on Nostr, the decentralized communication protocol. A signed event is published by the couple, including:</p>
+                    <ul class="mt-3">
+                        <li>The date of the ceremony</li>
+                        <li>A hash of the love manifesto read</li>
+                        <li>A symbolic message of their union</li>
+                    </ul>
+                    <p class="mt-3">This decentralized proof can be shared or kept private — preserving the couple's privacy while maintaining the spirit of transparency.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 6: Celebration -->
+        <div class="ceremony-section">
+            <div class="step-card">
+                <div class="step-number">6</div>
+                <h2 class="step-title">🍻 Celebration</h2>
+                <div class="step-content">
+                    <p>No Bitcoiner ceremony is complete without a proper celebration:</p>
+                    <div class="celebration-grid">
+                        <div class="celebration-item">
+                            <i class="fas fa-beer fa-2x mb-3" style="color: var(--bitcoin-orange);"></i>
+                            <p>A toast with beer paid via Bitcoin Lightning</p>
+                        </div>
+                        <div class="celebration-item">
+                            <i class="fas fa-utensils fa-2x mb-3" style="color: var(--bitcoin-orange);"></i>
+                            <p>A festive barbecue with meat, cheese, and bread — all settled in sats</p>
+                        </div>
+                        <div class="celebration-item">
+                            <i class="fas fa-gift fa-2x mb-3" style="color: var(--bitcoin-orange);"></i>
+                            <p>A special gift: a non-digital seed phrase, handed to the couple as a physical symbol of their shared multisig commitment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Quote -->
+        <div class="footer-quote">
+            <p><i class="fas fa-quote-left"></i> In a world full of emotional inflation, true love remains scarce, censorship-resistant, and verifiable. <i class="fas fa-quote-right"></i></p>
+            <p class="mt-3"><strong>Ready to seal your commitment... node to node, heart to heart?</strong></p>
+        </div>
+
+        <!-- Contact Button -->
+        <div class="text-center">
+            <button class="contact-btn" onclick="toggleContactForm()">
+                <i class="fas fa-heart"></i> Contact Us
+            </button>
+        </div>
+
+        <!-- Contact Form -->
+        <div id="contactForm" class="contact-form">
+            <h3 class="text-center mb-4" style="color: var(--bitcoin-orange);">
+                <i class="fas fa-rings-wedding"></i> Plan Your Bitcoin Wedding
+            </h3>
+            <form>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="+1 (555) 123-4567">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="weddingDate" class="form-label">Preferred Wedding Date</label>
+                    <input type="date" class="form-control" id="weddingDate">
+                </div>
+                <div class="mb-3">
+                    <label for="guestCount" class="form-label">Expected Number of Guests</label>
+                    <select class="form-control" id="guestCount">
+                        <option value="">Select guest count</option>
+                        <option value="intimate">Intimate (10-25 guests)</option>
+                        <option value="small">Small (26-50 guests)</option>
+                        <option value="medium">Medium (51-100 guests)</option>
+                        <option value="large">Large (100+ guests)</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="bitcoinExperience" class="form-label">Bitcoin Experience Level</label>
+                    <select class="form-control" id="bitcoinExperience">
+                        <option value="">Select your experience</option>
+                        <option value="beginner">Bitcoin Curious</option>
+                        <option value="intermediate">HODLer</option>
+                        <option value="advanced">Diamond Hands</option>
+                        <option value="expert">Bitcoin Maximalist</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="services" class="form-label">Services Interested In</label>
+                    <div class="mt-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="ceremony" id="ceremony">
+                            <label class="form-check-label" for="ceremony">Bitcoin Wedding Ceremony</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="multisig" id="multisig">
+                            <label class="form-check-label" for="multisig">Multisig Wallet Setup</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="nostr" id="nostr">
+                            <label class="form-check-label" for="nostr">Nostr Ceremony Recording</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="celebration" id="celebration">
+                            <label class="form-check-label" for="celebration">Bitcoin Payment Reception</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="message" class="form-label">Tell Us About Your Vision</label>
+                    <textarea class="form-control" id="message" rows="4" placeholder="Describe your dream Bitcoin wedding ceremony..."></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="contact-btn" style="margin-top: 0;">
+                        <i class="fab fa-bitcoin"></i> Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleContactForm() {
+            const form = document.getElementById('contactForm');
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                form.style.display = 'none';
+            }
+        }
+
+        // Add smooth animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all step cards
+        document.querySelectorAll('.step-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest! We\'ll get back to you soon to discuss your Bitcoin wedding ceremony. 🧡⚡');
+        });
+    </script>
+</body>
+</html>

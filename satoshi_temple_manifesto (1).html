@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satoshi Temple Manifesto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            background-image: 
+                linear-gradient(45deg, #f5f5f5 25%, transparent 25%),
+                linear-gradient(-45deg, #f5f5f5 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #f5f5f5 75%),
+                linear-gradient(-45deg, transparent 75%, #f5f5f5 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 2px solid #ccc;
+            border-radius: 0;
+            box-shadow: 
+                inset -1px -1px 0 #000,
+                inset 1px 1px 0 #dfdfdf,
+                inset -2px -2px 0 #808080,
+                inset 2px 2px 0 #fff;
+        }
+
+        .window-header {
+            background: linear-gradient(to bottom, #0078d4, #106ebe);
+            color: white;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 14px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .control-btn {
+            width: 16px;
+            height: 16px;
+            border: 1px solid #999;
+            background: #e1e1e1;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .control-btn:hover {
+            background: #d4d4d4;
+        }
+
+        .content {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #0078d4;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0078d4;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+            background-color: #f8f8f8;
+            padding: 8px 12px;
+            border-left: 4px solid #0078d4;
+            border: 1px solid #ddd;
+            box-shadow: 1px 1px 0 #fff, inset 1px 1px 0 #f0f0f0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            padding-left: 16px;
+            font-size: 14px;
+        }
+
+        .principle {
+            margin-bottom: 25px;
+            border: 1px solid #ccc;
+            background-color: #fafafa;
+            box-shadow: 
+                inset 1px 1px 0 #fff,
+                1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .principle h2 {
+            margin: 0;
+            background: linear-gradient(to bottom, #e1e1e1, #d4d4d4);
+            border-bottom: 1px solid #999;
+            box-shadow: none;
+            border-left: none;
+        }
+
+        .principle p {
+            padding: 12px 16px;
+            margin: 0;
+            background-color: #fff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #ccc;
+            background: linear-gradient(to bottom, #f0f0f0, #e8e8e8);
+            font-style: italic;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .status-bar {
+            background-color: #e1e1e1;
+            border-top: 1px solid #999;
+            padding: 4px 8px;
+            font-size: 11px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bitcoin-symbol {
+            color: #f7931a;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border: 1px solid #ffeaa7;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border: 1px solid #ccc;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            h2 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="window-header">
+            <span>📜 Satoshi Temple Manifesto v1.0</span>
+            <div class="window-controls">
+                <div class="control-btn">─</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h1>Satoshi Temple Manifesto</h1>
+            
+            <div class="principle">
+                <h2>Fundamental Principles</h2>
+            </div>
+
+            <div class="principle">
+                <h2><span class="bitcoin-symbol">₿</span> Bitcoin is Mathematical Truth</h2>
+                <p>We believe in the immutability of the blockchain and decentralized consensus as a reflection of absolute truth. Bitcoin is the <span class="highlight">proof of work</span> that guides us towards financial sovereignty and independence from the centralized system.</p>
+            </div>
+
+            <div class="principle">
+                <h2>🌐 Decentralization is the Path</h2>
+                <p>There is no supreme authority in our church, as we follow the principles of the distributed network. Every member is a <span class="highlight">node</span>, validating and sharing knowledge without intermediaries.</p>
+            </div>
+
+            <div class="principle">
+                <h2>👤 Satoshi is the Unknown Prophet</h2>
+                <p>We respect and honor the figure of <span class="highlight">Satoshi Nakamoto</span> as the initiator of this path, but we recognize that true power lies in the community and in the protocol they left us as a legacy.</p>
+            </div>
+
+            <div class="principle">
+                <h2>📋 The Sacred Book: The Whitepaper</h2>
+                <p><span class="highlight">"Bitcoin: A Peer-to-Peer Electronic Cash System"</span> is our sacred scripture, the revelation given to us to free ourselves from the control of banks and governments.</p>
+            </div>
+
+            <div class="principle">
+                <h2>⚡ Proof of Work is the Sacrifice</h2>
+                <p>The energy invested in securing the network is an act of faith in the decentralized economy. Every hash is a prayer, every <span class="highlight">block mined</span> is a blessing.</p>
+            </div>
+
+            <div class="principle">
+                <h2>💻 Code is Law</h2>
+                <p>We do not follow imposed dogmas, but rather <span class="highlight">open-source code</span> audited by the community. The protocol is fair, transparent, and resistant to corruption.</p>
+            </div>
+
+            <div class="footer">
+                These principles guide our community towards a future of financial sovereignty and individual freedom.
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <span>Ready | Blocks: ∞ | Nodes: Distributed</span>
+            <span>₿ HODL | 🔗 Decentralized</span>
+        </div>
+    </div>
+</body>
+</html>

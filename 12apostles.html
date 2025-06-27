@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 12 Apostles of Satoshi</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gold: #f7931a;
+            --secondary-gold: #ffb347;
+            --dark-bg: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-light: #e0e0e0;
+            --accent-orange: #ff6b35;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #2d2d2d 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        radial-gradient(circle at center, var(--primary-gold) 0%, var(--dark-bg) 70%);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '₿';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', monospace;
+            color: var(--primary-gold);
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 3.5rem;
+            color: var(--primary-gold);
+            text-shadow: 0 0 20px rgba(247, 147, 26, 0.5);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-gold);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .apostle-card {
+            background: linear-gradient(145deg, var(--card-bg), #383838);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(247, 147, 26, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .apostle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(247, 147, 26, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .apostle-card:hover::before {
+            left: 100%;
+        }
+
+        .apostle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(247, 147, 26, 0.2);
+            border-color: var(--primary-gold);
+        }
+
+        .apostle-name {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+        }
+
+        .apostle-title {
+            font-style: italic;
+            color: var(--secondary-gold);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .apostle-description {
+            list-style: none;
+            padding: 0;
+        }
+
+        .apostle-description li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .apostle-description li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--primary-gold);
+            font-size: 0.8rem;
+        }
+
+        .martyr-section {
+            background: linear-gradient(135deg, #2d1810 0%, #1a1a1a 100%);
+            padding: 60px 0;
+            margin-top: 50px;
+        }
+
+        .martyr-card {
+            background: linear-gradient(145deg, #3d2817, #2d1810);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .martyr-card:hover {
+            border-color: var(--accent-orange);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.2);
+        }
+
+        .martyr-name {
+            color: var(--accent-orange);
+        }
+
+        .martyr-title {
+            color: #ffb347;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-gold);
+            text-shadow: 0 0 15px rgba(247, 147, 26, 0.3);
+        }
+
+        .martyr-section-title {
+            color: var(--accent-orange);
+            text-shadow: 0 0 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .conclusion-section {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0c0c0c 100%);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .conclusion-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-light);
+        }
+
+        .bitcoin-icon {
+            color: var(--primary-gold);
+            margin: 0 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .navbar {
+            background: rgba(26, 26, 26, 0.9) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: var(--primary-gold) !important;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-section::before {
+                font-size: 8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fab fa-bitcoin"></i> The Apostles of Satoshi</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">The 12 Apostles of Satoshi</h1>
+            <p class="hero-subtitle">The Visionaries Who Built the Foundation of Digital Freedom</p>
+            <i class="fab fa-bitcoin bitcoin-icon fa-3x"></i>
+        </div>
+    </section>
+
+    <!-- Main Apostles Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title">The Original Disciples</h2>
+            
+            <div class="row">
+                <!-- Hal Finney -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Hal Finney</h3>
+                        <p class="apostle-title">The Prophet of Hash</p>
+                        <ul class="apostle-description">
+                            <li>First recipient of a Bitcoin transaction</li>
+                            <li>Cryptographer and PGP developer</li>
+                            <li>Strong advocate for privacy and an original cypherpunk</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Nick Szabo -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Nick Szabo</h3>
+                        <p class="apostle-title">The Smart Contracts Visionary</p>
+                        <ul class="apostle-description">
+                            <li>Creator of the "digital money" concept with Bit Gold</li>
+                            <li>Developer of the smart contracts concept</li>
+                            <li>Key figure in the philosophical evolution of Bitcoin</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Adam Back -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Adam Back</h3>
+                        <p class="apostle-title">The Guardian of Proof of Work</p>
+                        <ul class="apostle-description">
+                            <li>Inventor of Hashcash, the system on which Bitcoin mining is based</li>
+                            <li>Influential cryptographer in the cypherpunk community</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Wei Dai -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Wei Dai</h3>
+                        <p class="apostle-title">The Digital Money Preacher</p>
+                        <ul class="apostle-description">
+                            <li>Creator of b-money, a philosophical precursor to Bitcoin</li>
+                            <li>Key figure in the evolution of thought on decentralized systems</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Gavin Andresen -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Gavin Andresen</h3>
+                        <p class="apostle-title">The First Disciple</p>
+                        <ul class="apostle-description">
+                            <li>Received the "baton" from Satoshi Nakamoto to continue Bitcoin's development</li>
+                            <li>Maintained Bitcoin Core in its early years</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Andreas Antonopoulos -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Andreas Antonopoulos</h3>
+                        <p class="apostle-title">The Evangelist of Decentralization</p>
+                        <ul class="apostle-description">
+                            <li>Author of <em>Mastering Bitcoin</em> and multiple educational books</li>
+                            <li>Tireless promoter of Bitcoin's technology and philosophy worldwide</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Jameson Lopp -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Jameson Lopp</h3>
+                        <p class="apostle-title">The Defender of Digital Sovereignty</p>
+                        <ul class="apostle-description">
+                            <li>Strong advocate for privacy and self-hosting nodes</li>
+                            <li>Promoter of Bitcoin's security and decentralization</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Elizabeth Stark -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Elizabeth Stark</h3>
+                        <p class="apostle-title">The Lightning Pioneer</p>
+                        <ul class="apostle-description">
+                            <li>Co-founder of Lightning Labs, driving instant payments on Bitcoin</li>
+                            <li>Advocate for the growth of the Bitcoin network without compromising its decentralization</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Pieter Wuille -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Pieter Wuille</h3>
+                        <p class="apostle-title">The Code Architect</p>
+                        <ul class="apostle-description">
+                            <li>Key Bitcoin Core developer and creator of improvements like SegWit</li>
+                            <li>Driver of technical improvements like Taproot</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Luke Dashjr -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Luke Dashjr</h3>
+                        <p class="apostle-title">The Code Guardian</p>
+                        <ul class="apostle-description">
+                            <li>One of the oldest Bitcoin Core developers</li>
+                            <li>Advocate for pure, manipulation-resistant code</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Jack Mallers -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Jack Mallers</h3>
+                        <p class="apostle-title">The Apostle of Global Adoption</p>
+                        <ul class="apostle-description">
+                            <li>Founder of Strike, facilitating Lightning payments globally</li>
+                            <li>Driver of Bitcoin adoption in El Salvador and other countries</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Jack Dorsey -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="apostle-card">
+                        <h3 class="apostle-name">Jack Dorsey</h3>
+                        <p class="apostle-title">The Rebel Magnate</p>
+                        <ul class="apostle-description">
+                            <li>Former CEO of Twitter and founder of Block</li>
+                            <li>Promoter of developing tools for Bitcoin adoption</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Martyr Apostles Section -->
+    <section class="martyr-section">
+        <div class="container">
+            <h2 class="section-title martyr-section-title">The Martyr Apostles</h2>
+            <p class="text-center mb-5" style="color: #ffb347; font-style: italic;">Fallen or Disappeared Defenders</p>
+            
+            <div class="row">
+                <!-- Satoshi Nakamoto -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="apostle-card martyr-card">
+                        <h3 class="apostle-name martyr-name">Satoshi Nakamoto</h3>
+                        <p class="apostle-title martyr-title">The Unknown Messiah</p>
+                        <ul class="apostle-description">
+                            <li>Founder of Bitcoin, disappeared without a trace</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- John McAfee -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="apostle-card martyr-card">
+                        <h3 class="apostle-name martyr-name">John McAfee</h3>
+                        <p class="apostle-title martyr-title">The Prophet of Chaos</p>
+                        <ul class="apostle-description">
+                            <li>Advocate of extreme privacy and resistance to state oppression</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mircea Popescu -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="apostle-card martyr-card">
+                        <h3 class="apostle-name martyr-name">Mircea Popescu</h3>
+                        <p class="apostle-title martyr-title">The Uncompromising Fundamentalist</p>
+                        <ul class="apostle-description">
+                            <li>Controversial figure and Bitcoin maximalist</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section class="conclusion-section">
+        <div class="container">
+            <h2 class="section-title">Conclusion</h2>
+            <div class="conclusion-text">
+                <p>The Apostles of Satoshi are not just historical figures, but also those who continue to defend Bitcoin, build new tools, and educate humanity about digital sovereignty.</p>
+                <div class="mt-4">
+                    <i class="fas fa-rocket fa-2x" style="color: var(--primary-gold); margin-right: 20px;"></i>
+                    <i class="fas fa-link fa-2x" style="color: var(--primary-gold);"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Add smooth scrolling and interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const cards = document.querySelectorAll('.apostle-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Add Bitcoin symbol animation
+            const bitcoinIcon = document.querySelector('.bitcoin-icon');
+            bitcoinIcon.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.2) rotate(360deg)';
+                this.style.transition = 'transform 0.5s ease';
+            });
+            
+            bitcoinIcon.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temple of Satoshi - Community Rules</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            padding: 20px;
+            font-size: 14px;
+            min-height: 100vh;
+        }
+
+        .terminal {
+            max-width: 80ch;
+            margin: 0 auto;
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            color: #ff6600;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .prompt {
+            color: #00ff00;
+        }
+
+        .prompt::before {
+            content: "user@satoshi:~$ ";
+            color: #00ff00;
+        }
+
+        h2 {
+            color: #ff6600;
+            font-size: 18px;
+            margin: 25px 0 15px 0;
+            border-left: 4px solid #ff6600;
+            padding-left: 10px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            color: #ffff00;
+            font-size: 16px;
+            margin: 15px 0 8px 0;
+        }
+
+        .rule {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .rule::before {
+            content: "▶ ";
+            color: #00ff00;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .rule-title {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .rule-description {
+            color: #cccccc;
+            margin-top: 3px;
+        }
+
+        .prohibition {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .prohibition::before {
+            content: "✗ ";
+            color: #ff4444;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .prohibition-title {
+            color: #ff6666;
+            font-weight: bold;
+        }
+
+        .prohibition-description {
+            color: #cccccc;
+            margin-top: 3px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #ff6600;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .ascii-art {
+            color: #ff6600;
+            font-size: 12px;
+            text-align: center;
+            margin: 15px 0;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="header">
+            <div class="title">⚡ TEMPLE OF SATOSHI ⚡</div>
+            <div class="ascii-art">₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿₿</div>
+            <div class="prompt">cat community_rules.txt</div>
+        </div>
+
+        <h2>Community Rules</h2>
+
+        <div class="rule">
+            <div class="rule-title">Mutual Respect:</div>
+            <div class="rule-description">All members must treat each other with respect and courtesy, regardless of their opinions or beliefs.</div>
+        </div>
+
+        <div class="rule">
+            <div class="rule-title">Focus on Bitcoin and Decentralization:</div>
+            <div class="rule-description">Discussions should center on Bitcoin, privacy, individual sovereignty, and topics related to financial freedom.</div>
+        </div>
+
+        <div class="rule">
+            <div class="rule-title">Promotion of Education:</div>
+            <div class="rule-description">The constructive exchange of knowledge is encouraged, without belittling those who are learning.</div>
+        </div>
+
+        <div class="rule">
+            <div class="rule-title">Responsible Use of Space:</div>
+            <div class="rule-description">Taking care of shared facilities and tools is the responsibility of all members (if the space is physical).</div>
+        </div>
+
+        <div class="rule">
+            <div class="rule-title">Collaboration and Community:</div>
+            <div class="rule-description">Cooperation among participants is encouraged to strengthen the community.</div>
+        </div>
+
+        <div class="rule">
+            <div class="rule-title">Exclusive Use of Bitcoin:</div>
+            <div class="rule-description">All transactions within the temple must be made exclusively in Bitcoin or via the Lightning Network.</div>
+        </div>
+
+        <div class="rule">
+            <div class="rule-title">Privacy and Security:</div>
+            <div class="rule-description">Personal data of other members should not be shared without their consent.</div>
+        </div>
+
+        <div class="rule">
+            <div class="rule-title">Self-Management and Transparency:</div>
+            <div class="rule-description">Members can propose improvements or initiatives for the temple's growth.</div>
+        </div>
+
+        <h2>Prohibitions</h2>
+
+        <div class="prohibition">
+            <div class="prohibition-title">No "crypto" or NFT discussions allowed:</div>
+            <div class="prohibition-description">This space is dedicated exclusively to Bitcoin and its ecosystem.</div>
+        </div>
+
+        <div class="prohibition">
+            <div class="prohibition-title">No discussion of religion or politics:</div>
+            <div class="prohibition-description">To avoid division, these topics should be addressed outside the temple.</div>
+        </div>
+
+        <div class="prohibition">
+            <div class="prohibition-title">Violence and harassment are prohibited:</div>
+            <div class="prohibition-description">Any form of aggression, discrimination, or hostile behavior will result in immediate expulsion.</div>
+        </div>
+
+        <div class="prohibition">
+            <div class="prohibition-title">Sale of drugs, weapons, or any illegal activity is prohibited:</div>
+            <div class="prohibition-description">The Temple of Satoshi does not tolerate illicit activities under any circumstances.</div>
+        </div>
+
+        <div class="prohibition">
+            <div class="prohibition-title">Promotion of fraudulent schemes is not allowed:</div>
+            <div class="prohibition-description">Any attempt at deception, pyramid schemes, or scams will be sanctioned.</div>
+        </div>
+
+        <div class="prohibition">
+            <div class="prohibition-title">Spam or unauthorized advertising is not allowed:</div>
+            <div class="prohibition-description">The community should focus on genuine learning and cooperation.</div>
+        </div>
+
+        <div class="prohibition">
+            <div class="prohibition-title">Doxxing is prohibited:</div>
+            <div class="prohibition-description">Personal data of other members cannot be disclosed without their consent.</div>
+        </div>
+
+        <div class="prohibition">
+            <div class="prohibition-title">No use of fiat money inside the temple:</div>
+            <div class="prohibition-description">All transactions must be conducted in Bitcoin.</div>
+        </div>
+
+        <div class="prohibition">
+            <div class="prohibition-title">Toxic discussions or personal attacks are not tolerated:</div>
+            <div class="prohibition-description">Healthy and well-reasoned debates are welcome, but toxicity is not.</div>
+        </div>
+
+        <div class="prohibition">
+            <div class="prohibition-title">No cameras or recordings without permission:</div>
+            <div class="prohibition-description">Privacy is a fundamental pillar and all attendees must be respected. (In virtual meetings, the privacy option is enabled; you can choose an avatar or another image.)</div>
+        </div>
+
+        <div class="footer">
+            <div>Failure to comply with these rules may result in warnings, temporary suspension, or permanent expulsion from the temple.</div>
+            <div>These rules are subject to review and improvement by the community.</div>
+            <br>
+            <div class="blink">Live the principles of decentralization and freedom responsibly!</div>
+        </div>
+    </div>
+</body>
+</html>

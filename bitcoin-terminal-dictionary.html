@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Terminal Dictionary</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #00ff00;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.4;
+            overflow-x: auto;
+        }
+        
+        .terminal {
+            max-width: 100%;
+            padding: 20px;
+            background: #0a0a0a;
+            border: 2px solid #333;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+        
+        .terminal-header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .prompt {
+            color: #00ff00;
+            margin-bottom: 5px;
+        }
+        
+        .command {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        
+        .output {
+            color: #00ff00;
+            margin-bottom: 20px;
+        }
+        
+        .section-header {
+            color: #ffff00;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 25px 0 15px 0;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+        
+        .entry {
+            margin-bottom: 15px;
+            padding-left: 2px;
+        }
+        
+        .term {
+            color: #00ffff;
+            font-weight: bold;
+        }
+        
+        .definition {
+            color: #cccccc;
+            margin-left: 4px;
+        }
+        
+        .navigation {
+            background: #111;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            border-radius: 3px;
+        }
+        
+        .nav-link {
+            color: #00ff00;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        
+        .nav-link:hover {
+            color: #ffff00;
+            text-decoration: underline;
+        }
+        
+        .cursor {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .warning {
+            color: #ff6b6b;
+            background: #2d1b1b;
+            padding: 8px;
+            border-left: 3px solid #ff6b6b;
+            margin: 10px 0;
+        }
+        
+        .info {
+            color: #74c0fc;
+            background: #1b2d42;
+            padding: 8px;
+            border-left: 3px solid #74c0fc;
+            margin: 10px 0;
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            color: #666;
+            font-size: 11px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 11px;
+            }
+            .terminal {
+                padding: 10px;
+            }
+            .navigation {
+                padding: 5px;
+            }
+            .nav-link {
+                display: block;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator">Scroll: ↑↓</div>
+    
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="prompt">root@bitcoin:~$ cat bitcoin_dictionary.txt</div>
+            <div class="command">Loading Complete Bitcoiner Dictionary...</div>
+            <div class="output">Dictionary loaded successfully. 150+ terms indexed.</div>
+        </div>
+
+        <div class="navigation">
+            <div class="prompt">Navigation: </div>
+            <a href="#section-a" class="nav-link">[A]</a>
+            <a href="#section-b" class="nav-link">[B]</a>
+            <a href="#section-c" class="nav-link">[C]</a>
+            <a href="#section-d" class="nav-link">[D]</a>
+            <a href="#section-e" class="nav-link">[E]</a>
+            <a href="#section-f" class="nav-link">[F]</a>
+            <a href="#section-g" class="nav-link">[G]</a>
+            <a href="#section-h" class="nav-link">[H]</a>
+            <a href="#section-i" class="nav-link">[I]</a>
+            <a href="#section-j" class="nav-link">[J]</a>
+            <a href="#section-k" class="nav-link">[K]</a>
+            <a href="#section-l" class="nav-link">[L]</a>
+            <a href="#section-m" class="nav-link">[M]</a>
+            <a href="#section-n" class="nav-link">[N]</a>
+            <a href="#section-o" class="nav-link">[O]</a>
+            <a href="#section-p" class="nav-link">[P]</a>
+            <a href="#section-r" class="nav-link">[R]</a>
+            <a href="#section-s" class="nav-link">[S]</a>
+            <a href="#section-t" class="nav-link">[T]</a>
+            <a href="#section-u" class="nav-link">[U]</a>
+            <a href="#section-v" class="nav-link">[V]</a>
+            <a href="#section-w" class="nav-link">[W]</a>
+            <a href="#section-x" class="nav-link">[X]</a>
+            <a href="#section-z" class="nav-link">[Z]</a>
+        </div>
+
+        <div class="info">
+            INFO: This dictionary contains exhaustive Bitcoin terminology, concepts, and jargon.
+            Use Ctrl+F to search for specific terms.
+        </div>
+
+        <div id="section-a" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION A - ACCUMULATION TO ATOMIC SWAPS</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">ACCUMULATION:</span>
+            <span class="definition">The process of buying and holding Bitcoin with the intention that its value will increase over time.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">AIRDROP:</span>
+            <span class="definition">The free distribution of new cryptocurrencies or tokens to holders of an existing cryptocurrency, often Bitcoin.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">ALTCOIN:</span>
+            <span class="definition">Any cryptocurrency that is not Bitcoin.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">API (Application Programming Interface):</span>
+            <span class="definition">A set of definitions and protocols used to build and integrate application software. In Bitcoin, APIs are used to interact with nodes and explore the blockchain.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">ASIC (Application-Specific Integrated Circuit):</span>
+            <span class="definition">Hardware designed specifically for mining Bitcoin, much more efficient than CPUs or GPUs.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">ATOMIC SWAP:</span>
+            <span class="definition">A direct exchange of one cryptocurrency for another without the need for an intermediary.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">ATH (All-Time High):</span>
+            <span class="definition">The highest price Bitcoin has ever reached in its history.</span>
+        </div>
+
+        <div id="section-b" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION B - BEAR MARKET TO BULL MARKET</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">BEAR MARKET:</span>
+            <span class="definition">A period of time when asset prices (including Bitcoin) are falling or are expected to fall.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">BIP (Bitcoin Improvement Proposal):</span>
+            <span class="definition">A design document that provides information to the Bitcoin community, or describes a new feature, process, or environment for Bitcoin. For example, BIP39 for seed phrases.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">BITCOIN (BTC):</span>
+            <span class="definition">The world's first and largest decentralized cryptocurrency. Also refers to the network and protocol.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">BITCOIN CORE:</span>
+            <span class="definition">The reference software implementation of a Bitcoin node, maintained by a group of developers. It is the foundation of the network.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">BITCOIN MAXIMALIST:</span>
+            <span class="definition">Someone who believes that Bitcoin is the only cryptocurrency that matters in the long term and that all others are inferior or unnecessary.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">BLOCK:</span>
+            <span class="definition">A file that permanently contains and records Bitcoin transaction data that is confirmed and added to the blockchain.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">BLOCKCHAIN:</span>
+            <span class="definition">A distributed, immutable, and decentralized database that records all Bitcoin transactions in a chain of cryptographically linked blocks.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">BTC:</span>
+            <span class="definition">The three-letter ticker symbol for Bitcoin.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">BULL MARKET:</span>
+            <span class="definition">A period of time when asset prices (including Bitcoin) are rising or are expected to rise.</span>
+        </div>
+
+        <div id="section-c" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION C - CENSORSHIP TO CUSTODY</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">CENSORSHIP (Resistance to):</span>
+            <span class="definition">Bitcoin's ability to resist interference or blocking of transactions by governments, corporations, or any centralized entity.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">CODE AUDIT:</span>
+            <span class="definition">A systematic review of a program's source code to find errors, security holes, or violations of programming rules. Crucial in the development of Bitcoin and related projects.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">COLD STORAGE / COLD WALLET:</span>
+            <span class="definition">A method of storing Bitcoin where the private keys are kept offline, which drastically reduces the risk of cyberattacks. Examples: hardware wallets, paper wallets.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">COLLATERAL:</span>
+            <span class="definition">Assets pledged as security for a loan or to back a position in a financial contract.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">CONFIRMATION:</span>
+            <span class="definition">A Bitcoin transaction is considered confirmed once it has been included in a block and that block has been added to the blockchain. The more confirmations, the more secure the transaction.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">CONSENSUS ALGORITHM:</span>
+            <span class="definition">A mechanism used by a distributed network to achieve agreement on the state of the ledger. In Bitcoin, this is Proof of Work.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">CRYPTOGRAPHY:</span>
+            <span class="definition">The study and practice of techniques for secure communication in the presence of adversaries. Fundamental to Bitcoin's security.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">CUSTODY:</span>
+            <span class="definition">The act of holding and securing financial assets on behalf of another person. Many exchanges offer custodial services, but self-custody is preferred by bitcoiners.</span>
+        </div>
+
+        <div id="section-d" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION D - DAO TO DUSTING ATTACK</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">DAO (Decentralized Autonomous Organization):</span>
+            <span class="definition">An organization governed by rules encoded in a smart contract, transparent and immutable, without a central authority. Not directly part of Bitcoin, but a relevant concept in the crypto space.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">DCA (Dollar-Cost Averaging):</span>
+            <span class="definition">An investment strategy in which a fixed amount of money is invested regularly, regardless of the asset's price. Smoothes out market volatility over the long term.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">DECENTRALIZATION:</span>
+            <span class="definition">The property of a network or system where there is no single central authority. Bitcoin is decentralized, making it resistant to censorship and control.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">DeFi (Decentralized Finance):</span>
+            <span class="definition">A movement that seeks to recreate traditional financial services (lending, insurance, trading) using blockchain technology without intermediaries. Mostly on Ethereum and other altcoins, not directly on Bitcoin, although there are bridges and solutions like Liquid.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">DUSTING ATTACK:</span>
+            <span class="definition">Sending tiny amounts of Bitcoin (dust) to multiple addresses in the hope of tracking user activity across the network.</span>
+        </div>
+
+        <div id="section-e" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION E - ECOSYSTEM TO EVANGELIST</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">BITCOIN ECOSYSTEM:</span>
+            <span class="definition">The entire set of projects, companies, individuals, and technologies revolving around Bitcoin.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">ELLIPTIC CURVE CRYPTOGRAPHY (ECC):</span>
+            <span class="definition">A mathematical technique used in public key cryptography to generate public keys from private keys in Bitcoin.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">EXCHANGE:</span>
+            <span class="definition">A platform where users can buy, sell, or trade Bitcoin and other cryptocurrencies.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">BITCOIN EVANGELIST:</span>
+            <span class="definition">A passionate person who promotes Bitcoin and its principles.</span>
+        </div>
+
+        <div id="section-f" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION F - FAUCET TO FORK</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">BITCOIN FAUCET:</span>
+            <span class="definition">A website or application that distributes small amounts of Bitcoin for free to introduce new users to the world of cryptocurrencies.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">FIAT:</span>
+            <span class="definition">Government-issued fiat currency (e.g., dollar, euro). Bitcoin is an alternative to fiat money.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">FOMO (Fear Of Missing Out):</span>
+            <span class="definition">Fear of missing out on an investment opportunity, often leading to impulsive buying decisions.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">FORK:</span>
+            <span class="definition">
+                <br>• SOFT FORK: A backward-compatible software update that introduces new, stricter rules. Old nodes can still validate, but new blocks will be invalid for them.
+                <br>• HARD FORK: A backward-incompatible software update that requires all nodes to upgrade. Results in two separate chains if there is no total consensus.
+            </span>
+        </div>
+
+        <div id="section-g" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION G - GENESIS TO GOVERNANCE</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">GENESIS BLOCK:</span>
+            <span class="definition">The very first block in the Bitcoin blockchain, mined by Satoshi Nakamoto on January 3, 2009.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">GOVERNANCE:</span>
+            <span class="definition">The process by which decisions are made and implemented in a decentralized network like Bitcoin. It's a complex and ongoing process, without a central authority.</span>
+        </div>
+
+        <div id="section-h" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION H - HALVING TO HOT WALLET</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">HALVING:</span>
+            <span class="definition">A pre-programmed event in the Bitcoin network that halves the block reward received by miners. Occurs approximately every four years and reduces the issuance of new Bitcoin.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">HASH:</span>
+            <span class="definition">A mathematical function that takes an input of any size and produces a fixed-size output. Cryptographic hash functions are fundamental to Bitcoin's security.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">HASH RATE:</span>
+            <span class="definition">The amount of computing power being used to mine Bitcoin. The higher the hash rate, the more secure and decentralized the network.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">HODL:</span>
+            <span class="definition">A slang term in the crypto space, which originated from a typo of "hold." It means to hold Bitcoin for the long term, regardless of price volatility.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">HOT WALLET:</span>
+            <span class="definition">A Bitcoin wallet that is connected to the internet, making it convenient for quick transactions but more vulnerable to attacks. Examples: online or mobile software wallets.</span>
+        </div>
+
+        <div id="section-i" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION I - IMMUTABLE TO INSTITUTIONAL</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">IMMUTABLE:</span>
+            <span class="definition">The property of the Bitcoin blockchain that means once a transaction is recorded, it cannot be altered or deleted.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">INFLATION:</span>
+            <span class="definition">The general increase in prices and the fall in purchasing power of currency. Bitcoin is designed to be deflationary due to its limited supply.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">INSTITUTIONAL INVESTOR:</span>
+            <span class="definition">Large companies or investment funds that invest significant sums of capital in assets like Bitcoin.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">INTEROPERABILITY:</span>
+            <span class="definition">The ability of different systems and protocols to communicate and work together.</span>
+        </div>
+
+        <div id="section-j" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION J - HIERARCHICAL DETERMINISTIC</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">HIERARCHICAL DETERMINISTIC (HD WALLET):</span>
+            <span class="definition">A type of wallet that generates multiple Bitcoin addresses from a single seed phrase, allowing for easy backup and management.</span>
+        </div>
+
+        <div id="section-k" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION K - KILO TO KYC</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">KILO BITCOIN (kBTC):</span>
+            <span class="definition">One thousand Bitcoin.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">KYC (Know Your Customer):</span>
+            <span class="definition">Processes that financial institutions and exchanges implement to verify the identity of their customers. Often criticized for its impact on privacy.</span>
+        </div>
+
+        <div id="section-l" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION L - LIGHTNING TO LIQUID</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">LIGHTNING NETWORK:</span>
+            <span class="definition">A Layer 2 scaling solution for Bitcoin that enables instant, low-cost off-chain transactions, improving scalability and privacy.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">LIQUID NETWORK:</span>
+            <span class="definition">A Bitcoin sidechain developed by Blockstream, which allows faster and more private Bitcoin transactions with pegged assets (LBTC).</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">LSP (Lightning Service Provider):</span>
+            <span class="definition">A service provider on the Lightning Network that helps users connect and make payments, similar to an Internet service provider.</span>
+        </div>
+
+        <div id="section-m" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION M - MEMPOOL TO MULTISIG</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">MEMPOOL (Memory Pool):</span>
+            <span class="definition">A "waiting area" for Bitcoin transactions that have been broadcast to the network but have not yet been included in a block by a miner.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">MERKLE TREE:</span>
+            <span class="definition">A cryptographic data structure that allows for efficient verification of data integrity. Used in Bitcoin to summarize all transactions in a block into a single hash (Merkle Root).</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">MINING:</span>
+            <span class="definition">The process of using computing power to solve cryptographic problems and add new blocks of transactions to the Bitcoin blockchain. This is how new Bitcoin are created and the network is secured.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">MINING POOL:</span>
+            <span class="definition">A group of miners who combine their computing power (hash rate) to increase their chances of finding a block and sharing the rewards.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">MULTISIG:</span>
+            <span class="definition">An address that requires multiple private keys to sign a transaction before the associated Bitcoin can be spent. Adds an extra layer of security.</span>
+        </div>
+
+        <div id="section-n" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION N - NODE TO NO-KYC</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">NODE:</span>
+            <span class="definition">A computer that participates in the Bitcoin network by running the Bitcoin Core software. Nodes validate transactions and blocks, and broadcast information across the network.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">FULL NODE:</span>
+            <span class="definition">A node that downloads and verifies a complete copy of the entire Bitcoin blockchain, contributing to the network's security and decentralization.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">NO-KYC:</span>
+            <span class="definition">Operations or platforms that do not require users to go through Know Your Customer (KYC) processes, prioritizing privacy.</span>
+        </div>
+
+        <div id="section-o" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION O - OFF-CHAIN TO OTC</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">OFF-CHAIN:</span>
+            <span class="definition">Transactions that occur outside the main blockchain, such as those performed on the Lightning Network, to improve scalability and privacy.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">ON-CHAIN:</span>
+            <span class="definition">Transactions that occur and are recorded directly on the main Bitcoin blockchain.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">ORDINAL THEORY:</span>
+            <span class="definition">A system for numbering and tracking individual Satoshis on the Bitcoin blockchain, allowing for the creation of "inscriptions" (NFTs) directly on Bitcoin. A recent and controversial addition.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">ORPHAN BLOCK:</span>
+            <span class="definition">A successfully mined block that is not part of the main chain because another miner found a competing block at the same time.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">OTC (Over-The-Counter):</span>
+            <span class="definition">The trading of Bitcoin that occurs directly between two parties, without the intermediation of a public exchange. Often used for large volumes.</span>
+        </div>
+
+        <div id="section-p" class="section-header">═══════════════════════════════════════════════════════════════</div>
+        <div class="section-header">SECTION P - P2P TO PSEUDONYMOUS</div>
+        <div class="section-header">═══════════════════════════════════════════════════════════════</div>
+
+        <div class="entry">
+            <span class="term">P2P (Peer-to-Peer):</span>
+            <span class="definition">Refers to a network where participants interact directly with each other without a central intermediary. Bitcoin is a P2P network.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">PAPER WALLET:</span>
+            <span class="definition">A cold storage method where Bitcoin public and private keys are printed on paper. Less recommended today due to security and durability risks.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">PRIVACY:</span>
+            <span class="definition">The ability to conduct transactions without revealing personal identity. Although Bitcoin transactions are pseudonymous, they are not completely anonymous.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">PROOF OF WORK (PoW):</span>
+            <span class="definition">The consensus algorithm used by Bitcoin, where miners compete to solve a complex computational problem. It's costly but secures the network.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">PROTOCOL:</span>
+            <span class="definition">A set of rules that govern how systems and networks communicate. The Bitcoin Protocol is the set of rules that govern the network.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">PSEUDONYMOUS:</span>
+            <span class="definition">In Bitcoin, transactions are associated with addresses (pseudonyms), not directly with real identities, although blockchain analysis can attempt to deanonymize.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">PUBLIC KEY CRYPTOGRAPHY:</span>
+            <span class="definition">A system of cryptography that uses a pair of keys (one public and one private) for encryption and digital signature. In Bitcoin, it's used to sign transactions and verify ownership.</span>
+        </div>
+
+        <div class="entry">
+            <span class="term">PUMP AND DUMP:
