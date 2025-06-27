@@ -1,0 +1,660 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sanctuary of Sats: Challenges & Rewards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Color Variables */
+        :root {
+            --bitcoin-orange: #f7931a;
+            --spiritual-violet: #8e30eb;
+            --pure-white: #ffffff;
+            --dark-gray: #4d4d4d;
+            --light-gray: #7a7a7a;
+            --background-dark: #1a1a1a;
+            --border-glow: rgba(247, 147, 26, 0.5); /* Orange glow */
+            --text-glow: rgba(142, 48, 235, 0.7); /* Violet glow */
+        }
+
+
+        /* General Styles */
+        body {
+            font-family: 'Orbitron', sans-serif; /* Technological typeface */
+            background-color: var(--background-dark);
+            color: var(--pure-white);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevents horizontal scroll */
+        }
+
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cinzel', serif; /* Sacred typeface */
+            color: var(--spiritual-violet);
+            text-shadow: 0 0 8px var(--text-glow);
+            margin-bottom: 20px;
+        }
+
+
+        a {
+            color: var(--bitcoin-orange);
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+
+        a:hover {
+            color: var(--pure-white);
+            text-shadow: 0 0 10px var(--bitcoin-orange);
+        }
+
+
+        button {
+            background-color: var(--bitcoin-orange);
+            color: var(--background-dark);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 10px rgba(247, 147, 26, 0.4);
+        }
+
+
+        button:hover {
+            background-color: var(--pure-white);
+            color: var(--bitcoin-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(247, 147, 26, 0.7);
+        }
+
+
+        /* Sections */
+        header {
+            background: linear-gradient(135deg, var(--background-dark) 0%, rgba(77, 77, 77, 0.7) 100%);
+            padding: 50px 0;
+            text-align: center;
+            border-bottom: 3px solid var(--spiritual-violet);
+            box-shadow: 0 5px 20px rgba(142, 48, 235, 0.3);
+        }
+
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px var(--text-glow), 0 0 25px var(--bitcoin-orange);
+        }
+
+
+        header p {
+            font-size: 1.2em;
+            color: var(--light-gray);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+
+        .cta-buttons button {
+            margin: 0 15px;
+        }
+
+
+        .stats-module {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            background-color: rgba(77, 77, 77, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 0 15px var(--border-glow);
+        }
+
+
+        .stat-item {
+            text-align: center;
+            margin: 15px;
+        }
+
+
+        .stat-item h3 {
+            font-size: 2.5em;
+            color: var(--bitcoin-orange);
+            text-shadow: 0 0 10px var(--bitcoin-orange);
+        }
+
+
+        .stat-item p {
+            font-size: 1em;
+            color: var(--light-gray);
+        }
+
+
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px dashed var(--dark-gray);
+        }
+
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.8em;
+        }
+
+
+        /* Bounty Listings */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+
+        .filters select, .filters input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--spiritual-violet);
+            background-color: var(--dark-gray);
+            color: var(--pure-white);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+
+        .bounty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+
+        .bounty-card {
+            background-color: rgba(77, 77, 77, 0.4);
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid var(--spiritual-violet);
+            box-shadow: 0 0 15px rgba(142, 48, 235, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .bounty-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid transparent;
+            border-image: linear-gradient(45deg, var(--bitcoin-orange), var(--spiritual-violet)) 1;
+            border-image-slice: 1;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+
+        .bounty-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(142, 48, 235, 0.8), 0 0 15px rgba(247, 147, 26, 0.6);
+        }
+
+
+        .bounty-card:hover::before {
+            opacity: 1;
+        }
+
+
+        .bounty-card .content {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        .bounty-card h3 {
+            color: var(--bitcoin-orange);
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+
+        .bounty-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            color: var(--light-gray);
+        }
+
+
+        .bounty-info span {
+            background-color: rgba(247, 147, 26, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--bitcoin-orange);
+        }
+
+
+        .bounty-info .difficulty {
+            background-color: rgba(142, 48, 235, 0.2);
+            border: 1px solid var(--spiritual-violet);
+        }
+
+
+        /* Submission System */
+        .submission-form {
+            background-color: rgba(77, 77, 77, 0.4);
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid var(--spiritual-violet);
+            box-shadow: 0 0 20px rgba(142, 48, 235, 0.5);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+
+        .submission-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--pure-white);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+
+        .submission-form input[type="text"],
+        .submission-form textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid var(--bitcoin-orange);
+            background-color: var(--background-dark);
+            color: var(--pure-white);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1em;
+            box-shadow: inset 0 0 5px rgba(247, 147, 26, 0.3);
+        }
+
+
+        .submission-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+
+        /* Hackathons */
+        .hackathon-event {
+            background-color: rgba(77, 77, 77, 0.4);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid var(--bitcoin-orange);
+            box-shadow: 0 0 15px rgba(247, 147, 26, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+
+        .hackathon-event:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(247, 147, 26, 0.8), 0 0 15px rgba(142, 48, 235, 0.6);
+        }
+
+
+        .hackathon-event h3 {
+            color: var(--spiritual-violet);
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+
+        .hackathon-event p {
+            color: var(--light-gray);
+            margin-bottom: 15px;
+        }
+
+
+        .hackathon-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+
+
+        .hackathon-details span {
+            background-color: rgba(142, 48, 235, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--spiritual-violet);
+        }
+
+
+        /* Community Reputation (Optional) */
+        .reputation-module {
+            background-color: rgba(77, 77, 77, 0.4);
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid var(--spiritual-violet);
+            box-shadow: 0 0 20px rgba(142, 48, 235, 0.5);
+            text-align: center;
+        }
+
+
+        .reputation-module h3 {
+            color: var(--bitcoin-orange);
+            margin-bottom: 20px;
+        }
+
+
+        .ranking-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+
+        .ranking-item {
+            background-color: rgba(247, 147, 26, 0.1);
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--bitcoin-orange);
+        }
+
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-top: 2px solid var(--spiritual-violet);
+            color: var(--light-gray);
+            font-size: 0.9em;
+            margin-top: 50px;
+        }
+
+
+        footer p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>The Sanctuary of Sats</h1>
+            <p>A nexus for **digital liberation** through **bounties** and **hackathons**. Here, the brightest minds unite to forge a future of **privacy**, **digital sovereignty**, and **decentralization** powered by **Bitcoin**.</p>
+            <div class="cta-buttons">
+                <button onclick="location.href='#bounties'">Explore Challenges</button>
+                <button onclick="location.href='#hackathons'">Join Hackathons</button>
+                <button onclick="location.href='#submit'">Submit Your Solution</button>
+            </div>
+            <div class="stats-module">
+                <div class="stat-item">
+                    <h3>[Number]</h3>
+                    <p>Active Bounties</p>
+                </div>
+                <div class="stat-item">
+                    <h3>[Amount]</h3>
+                    <p>Sats Distributed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>[Number]</h3>
+                    <p>Luminous Minds</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <section id="bounties" class="section">
+            <div class="container">
+                <h2 class="section-title">Open Challenges: Forge Your Digital Destiny</h2>
+                <p style="text-align: center; color: var(--light-gray); margin-bottom: 30px;">Contribute your ingenuity, learn new skills, and earn **sats** by building the decentralized future.</p>
+
+
+                <div class="filters">
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="educational-guides">Educational Guides</option>
+                        <option value="security">Security</option>
+                        <option value="development">Development</option>
+                        <option value="research">Research</option>
+                        <option value="bitcoin">Bitcoin</option>
+                        <option value="nostr">Nostr</option>
+                        <option value="anonymity">Anonymity</option>
+                        <option value="ecash">Ecash</option>
+                        <option value="local-economy">Local Economy</option>
+                        <option value="mesh">Mesh</option>
+                    </select>
+                    <select id="sort-by">
+                        <option value="reward">Sort by Reward</option>
+                        <option value="deadline">Sort by Deadline</option>
+                        <option value="popularity">Sort by Popularity</option>
+                    </select>
+                    <input type="text" id="search-bounty" placeholder="Search challenge...">
+                </div>
+
+
+                <div class="bounty-grid">
+                    <div class="bounty-card">
+                        <div class="content">
+                            <h3>Guide Creation: "Your First Bitcoin Node"</h3>
+                            <p style="color: var(--light-gray);">Develop a clear, concise, step-by-step guide for beginners to set up their own Bitcoin node at home. Include hardware and software options.</p>
+                            <div class="bounty-info">
+                                <span class="difficulty">Novice</span>
+                                <span><strong style="color: var(--bitcoin-orange);">500,000</strong> sats</span>
+                            </div>
+                            <p style="font-size: 0.9em; color: var(--light-gray);">Deadline: July 31, 2025</p>
+                            <a href="#" target="_blank" style="display: block; margin-top: 15px;">More info / Repository</a>
+                            <button style="margin-top: 20px; width: 100%;">Apply / Submit Proposal</button>
+                        </div>
+                    </div>
+                    <div class="bounty-card">
+                        <div class="content">
+                            <h3>Lightning Payment Module for Online Store</h3>
+                            <p style="color: var(--light-gray);">Develop an open-source plugin or module to integrate Lightning payments into a popular e-commerce platform (e.g., WooCommerce, Shopify).</p>
+                            <div class="bounty-info">
+                                <span class="difficulty">Intermediate</span>
+                                <span><strong style="color: var(--bitcoin-orange);">1,500,000</strong> sats</span>
+                            </div>
+                            <p style="font-size: 0.9em; color: var(--light-gray);">Deadline: August 15, 2025</p>
+                            <a href="#" target="_blank" style="display: block; margin-top: 15px;">More info / Repository</a>
+                            <button style="margin-top: 20px; width: 100%;">Apply / Submit Proposal</button>
+                        </div>
+                    </div>
+                    <div class="bounty-card">
+                        <div class="content">
+                            <h3>Research: Off-Chain Payment Scalability</h3>
+                            <p style="color: var(--light-gray);">In-depth analysis of new proposals and advancements in off-chain payment scalability solutions beyond the Lightning Network, including their pros and cons.</p>
+                            <div class="bounty-info">
+                                <span class="difficulty">Advanced</span>
+                                <span><strong style="color: var(--bitcoin-orange);">3,000,000</strong> sats</span>
+                            </div>
+                            <p style="font-size: 0.9em; color: var(--light-gray);">Deadline: September 30, 2025</p>
+                            <a href="#" target="_blank" style="display: block; margin-top: 15px;">More info / Repository</a>
+                            <button style="margin-top: 20px; width: 100%;">Apply / Submit Proposal</button>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+
+        <section id="submit" class="section">
+            <div class="container">
+                <h2 class="section-title">Submit Your Solution: Materialize Your Vision</h2>
+                <p style="text-align: center; color: var(--light-gray); margin-bottom: 30px;">Found the key? Submit your proposal and let your ingenuity be rewarded.</p>
+
+
+                <form class="submission-form">
+                    <label for="submit-name">Your Name / Pseudonym:</label>
+                    <input type="text" id="submit-name" name="name" required placeholder="Satoshi Nakamoto...">
+
+
+                    <label for="submit-bio">Brief Biography / Introduction:</label>
+                    <textarea id="submit-bio" name="bio" rows="4" placeholder="Cypherpunk seeking digital freedom..."></textarea>
+
+
+                    <label for="solution-link">Link to Your Solution (PDF, Video, GitHub, Nostr Event, etc.):</label>
+                    <input type="text" id="solution-link" name="solution_link" required placeholder="https://github.com/your-solution or nostr:npub1... ">
+
+
+                    <label for="lightning-address">Your Lightning Address to receive Sats:</label>
+                    <input type="text" id="lightning-address" name="lightning_address" required placeholder="youremail@getalby.com or LNURL...">
+
+
+                    <p style="font-size: 0.9em; color: var(--light-gray); margin-top: 10px;">*Your data will be managed with **privacy**, and your public key for sats will be used for direct reward.</p>
+
+
+                    <button type="submit" style="margin-top: 30px; width: 100%;">Submit Proposal</button>
+                    <p style="text-align: center; color: var(--bitcoin-orange); font-weight: bold; margin-top: 20px;">Your proposal will be reviewed by our curators!</p>
+                </form>
+            </div>
+        </section>
+
+
+        <section id="hackathons" class="section">
+            <div class="container">
+                <h2 class="section-title">Hackathons: Convergence of Luminous Minds</h2>
+                <p style="text-align: center; color: var(--light-gray); margin-bottom: 30px;">Join intensive events to collaborate, innovate, and build cutting-edge solutions for digital freedom.</p>
+
+
+                <div class="hackathon-calendar">
+                    <div class="hackathon-event">
+                        <h3>Cypherpunk Codefest 2025</h3>
+                        <p>A development marathon focused on **anonymity** and **privacy** tools for the network. Build the next generation of mix-nets and wallets that defy surveillance!</p>
+                        <div class="hackathon-details">
+                            <span>**Date:** November 1-3, 2025</span>
+                            <span>**Prizes:** Over 10 BTC in sats + global recognition</span>
+                        </div>
+                        <p style="margin-top: 15px;"><a href="#" target="_blank">More info and Registration</a></p>
+                        <button style="margin-top: 15px;">Register Now</button>
+                    </div>
+                    <div class="hackathon-event">
+                        <h3>Decentralized Finance Frontier</h3>
+                        <p>Explore and create DeFi solutions on **Bitcoin** and **decentralized networks**. From P2P lending to uncensored prediction markets.</p>
+                        <div class="hackathon-details">
+                            <span>**Date:** December 8-10, 2025</span>
+                            <span>**Prizes:** Direct Bounties + Community Visibility</span>
+                        </div>
+                        <p style="margin-top: 15px;"><a href="#" target="_blank">More info and Registration</a></p>
+                        <button style="margin-top: 15px;">Register Now</button>
+                    </div>
+                    </div>
+
+
+                <div class="project-wall" style="margin-top: 50px;">
+                    <h3 style="text-align: center; color: var(--bitcoin-orange);">Wall of Submitted Projects</h3>
+                    <p style="text-align: center; color: var(--light-gray);">Explore the innovations born from our hackathons. Get inspired and collaborate.</p>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button>View Past Projects</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="reputation" class="section" style="border-bottom: none;">
+            <div class="container">
+                <h2 class="section-title">Community Reputation: Your Legacy in Sats</h2>
+                <p style="text-align: center; color: var(--light-gray); margin-bottom: 30px;">Earn points and badges for your contributions and climb the **ranking** of future builders.</p>
+                
+                <div class="reputation-module">
+                    <h3>Top Contributors</h3>
+                    <ul class="ranking-list">
+                        <li class="ranking-item">
+                            <span>1. Satoshi_Visionary</span>
+                            <span>2500 Points | 🏆 Master Builder Badge</span>
+                        </li>
+                        <li class="ranking-item">
+                            <span>2. Cypher_Code</span>
+                            <span>1800 Points | 🏅 Protocol Wizard Badge</span>
+                        </li>
+                        <li class="ranking-item">
+                            <span>3. Anon_Dev</span>
+                            <span>1200 Points | ✨ Privacy Guardian Badge</span>
+                        </li>
+                        </ul>
+                    <p style="margin-top: 30px; font-size: 0.9em; color: var(--light-gray);">Want to appear here? Enable the option in your profile (coming soon).</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 The Sanctuary of Sats. Forging Digital Sovereignty.</p>
+            <p>Powered by community and the spirit of **Bitcoin**, **Privacy**, and **Decentralization**.</p>
+            <p>Contact: <a href="mailto:info@elsantuariodelossats.com">info@elsantuariodelossats.com</a></p>
+            <p style="margin-top: 15px;">*This project is **open-source** and **self-hostable**. Your contribution is key!</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Basic filtering and search functionality (for demo, would be enhanced with real JS)
+        document.getElementById('category-filter').addEventListener('change', filterBounties);
+        document.getElementById('sort-by').addEventListener('change', filterBounties);
+        document.getElementById('search-bounty').addEventListener('keyup', filterBounties);
+
+
+        function filterBounties() {
+            const category = document.getElementById('category-filter').value;
+            const sortBy = document.getElementById('sort-by').value;
+            const searchTerm = document.getElementById('search-bounty').value.toLowerCase();
+            const bounties = document.querySelectorAll('.bounty-card');
+
+
+            bounties.forEach(bounty => {
+                const title = bounty.querySelector('h3').textContent.toLowerCase();
+                const description = bounty.querySelector('p').textContent.toLowerCase();
+                // Here, classes or attributes for categories and reward/date values would be needed
+                // For this demo, only filtering by title/description
+                
+                const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+                // The logic for category filtering and sorting would be more complex in real JS
+                
+                if (matchesSearch) {
+                    bounty.style.display = 'block';
+                } else {
+                    bounty.style.display = 'none';
+                }
+            });
+
+
+            // More complex sorting logic would go here (e.g., getting data from each bounty and reordering the DOM)
+        }
+
+
+        // Form submission simulation
+        document.querySelector('.submission-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Proposal successfully submitted! It will be reviewed by our curators. Thank you for your contribution.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
