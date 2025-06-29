@@ -1,0 +1,1127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Temple Academy - Open Bitcoin Education Directory</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .bitcoin-orange { color: #F7931A; }
+        .bitcoin-orange-bg { background-color: #F7931A; }
+        .bitcoin-orange-hover:hover { background-color: #E8851A; }
+        .course-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            position: relative;
+        }
+        .course-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .course-card.cancelled {
+            opacity: 0.7;
+        }
+        .course-card.cancelled::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            pointer-events: none;
+        }
+        .filter-button.active {
+            background-color: #F7931A;
+            color: white;
+        }
+        .language-flag {
+            width: 20px;
+            height: 15px;
+            display: inline-block;
+            margin-right: 8px;
+            border-radius: 2px;
+        }
+        .cancelled-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ef4444;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+        .report-cancel-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .course-card:hover .report-cancel-btn {
+            opacity: 1;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #F7931A;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+        @media print {
+            .no-print { display: none !important; }
+            body { font-size: 12px; }
+            .course-card { break-inside: avoid; margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <i class="fas fa-graduation-cap text-3xl bitcoin-orange mr-3"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">The Temple Academy</h1>
+                        <p class="text-sm text-gray-600">Open Bitcoin Education Directory</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-bitcoin text-yellow-500 mr-1"></i>
+                        <span>Bitcoin Native</span>
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-lock-open text-green-500 mr-1"></i>
+                        <span>No Registration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Main Navigation -->
+    <nav class="bg-gray-800 text-white sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <button id="nav-all" class="nav-btn px-3 py-2 rounded-md text-sm font-medium bg-gray-700">
+                        <i class="fas fa-home mr-2"></i>All Courses
+                    </button>
+                    <button id="nav-languages" class="nav-btn px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">
+                        <i class="fas fa-language mr-2"></i>Languages
+                    </button>
+                    <button id="nav-categories" class="nav-btn px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">
+                        <i class="fas fa-tags mr-2"></i>Categories
+                    </button>
+                    <button id="nav-submit" class="nav-btn px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">
+                        <i class="fas fa-plus mr-2"></i>Submit Course
+                    </button>
+                </div>
+                <div class="flex items-center">
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="Search courses..." 
+                               class="w-64 px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        <i class="fas fa-search absolute right-3 top-2.5 text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Cancellation Modal -->
+    <div id="cancellation-modal" class="modal">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 class="text-lg font-semibold mb-4">Report Course Cancellation</h3>
+            <p class="text-gray-600 mb-4">Are you sure this course is no longer available? This will mark it as cancelled for all users.</p>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Reason for cancellation (optional)</label>
+                <select id="cancel-reason" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <option value="">Select a reason</option>
+                    <option value="Course no longer offered">Course no longer offered</option>
+                    <option value="Institution closed">Institution closed</option>
+                    <option value="Link broken/unavailable">Link broken/unavailable</option>
+                    <option value="Merged with another course">Merged with another course</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Additional comments (optional)</label>
+                <textarea id="cancel-comments" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Any additional information..."></textarea>
+            </div>
+            
+            <div class="flex justify-end space-x-3">
+                <button id="cancel-modal-btn" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50">Cancel</button>
+                <button id="confirm-cancel-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Report as Cancelled</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- All Courses Section -->
+        <div id="section-all" class="section">
+            <!-- Stats Banner -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold bitcoin-orange" id="total-courses">0</div>
+                        <div class="text-gray-600">Total Courses</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-600" id="active-courses">0</div>
+                        <div class="text-gray-600">Active Courses</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-red-600" id="cancelled-courses">0</div>
+                        <div class="text-gray-600">Cancelled Courses</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-600" id="total-institutions">0</div>
+                        <div class="text-gray-600">Institutions</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600">20</div>
+                        <div class="text-gray-600">Languages</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Quick Filters -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-lg font-semibold mb-4">Quick Filters</h3>
+                
+                <!-- Show Cancelled Toggle -->
+                <div class="mb-4 pb-4 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <label class="text-sm font-medium text-gray-700">Show Cancelled Courses</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="show-cancelled-toggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Toggle to show or hide courses that have been reported as cancelled</p>
+                </div>
+                
+                <!-- Language Filters -->
+                <div class="mb-4">
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">Languages</h4>
+                    <div class="flex flex-wrap gap-2" id="language-filters">
+                        <!-- Language buttons will be populated by JavaScript -->
+                    </div>
+                </div>
+
+
+                <!-- Category Filters -->
+                <div class="mb-4">
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">Categories</h4>
+                    <div class="flex flex-wrap gap-2" id="category-filters">
+                        <!-- Category buttons will be populated by JavaScript -->
+                    </div>
+                </div>
+
+
+                <!-- Additional Filters -->
+                <div class="flex flex-wrap gap-4">
+                    <select id="difficulty-filter" class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        <option value="">All Levels</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                    <select id="format-filter" class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        <option value="">All Formats</option>
+                        <option value="Online">Online</option>
+                        <option value="In-Person">In-Person</option>
+                        <option value="Hybrid">Hybrid</option>
+                    </select>
+                    <button id="clear-filters" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+                        <i class="fas fa-times mr-2"></i>Clear All
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Course Grid -->
+            <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Courses will be populated by JavaScript -->
+            </div>
+
+
+            <!-- No Results -->
+            <div id="no-results" class="hidden text-center py-12">
+                <i class="fas fa-search text-4xl text-gray-400 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">No courses found</h3>
+                <p class="text-gray-500">Try adjusting your filters or search terms</p>
+            </div>
+        </div>
+
+
+        <!-- Languages Section -->
+        <div id="section-languages" class="section hidden">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-6">Browse by Language</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="languages-grid">
+                    <!-- Language cards will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Categories Section -->
+        <div id="section-categories" class="section hidden">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-6">Browse by Category</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="categories-grid">
+                    <!-- Category cards will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Submit Course Section -->
+        <div id="section-submit" class="section hidden">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-6">Submit a Course</h2>
+                <p class="text-gray-600 mb-6">Share Bitcoin education resources with the community. All submissions are instantly published.</p>
+                
+                <form id="submit-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Course Title *</label>
+                            <input type="text" id="course-title" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                   placeholder="e.g., Introduction to Bitcoin">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Institution/Provider *</label>
+                            <input type="text" id="course-institution" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                   placeholder="e.g., Bitcoin University">
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                        <textarea id="course-description" required rows="4"
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                  placeholder="Provide a detailed description of the course content and objectives"></textarea>
+                    </div>
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Language *</label>
+                            <select id="course-language" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <option value="">Select Language</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                            <select id="course-category" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <option value="">Select Category</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Difficulty Level *</label>
+                            <select id="course-difficulty" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <option value="">Select Level</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Course Link *</label>
+                            <input type="url" id="course-link" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                   placeholder="https://example.com/course">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Format *</label>
+                            <select id="course-format" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <option value="">Select Format</option>
+                                <option value="Online">Online</option>
+                                <option value="In-Person">In-Person</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+                            <input type="text" id="course-duration" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                   placeholder="e.g., 4 weeks, 10 hours">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Contact Email</label>
+                            <input type="email" id="course-contact" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                   placeholder="contact@institution.com">
+                        </div>
+                    </div>
+
+
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-6 py-3 bitcoin-orange-bg text-white rounded-md hover:bg-yellow-600 font-medium">
+                            <i class="fas fa-plus mr-2"></i>Submit Course
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">The Temple Academy</h3>
+                    <p class="text-gray-400">Open directory for Bitcoin and cryptocurrency education resources.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Bitcoin Education</li>
+                        <li>Cypherpunk Philosophy</li>
+                        <li>History of Money</li>
+                        <li>Mining Operations</li>
+                        <li>Nostr Protocol</li>
+                        <li>Bitcoin Philosophy</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Features</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>No Registration Required</li>
+                        <li>20 Languages Supported</li>
+                        <li>Instant Course Submission</li>
+                        <li>Advanced Filtering</li>
+                        <li>Course Cancellation Reports</li>
+                        <li>Mobile Responsive</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 The Temple Academy. Open source Bitcoin education directory.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Data structures
+        const languages = [
+            'English', 'Mandarin Chinese', 'Hindi', 'Spanish', 'French', 'Standard Arabic',
+            'Bengali', 'Russian', 'Portuguese', 'Indonesian', 'Urdu', 'German',
+            'Japanese', 'Swahili', 'Marathi', 'Telugu', 'Turkish', 'Tamil', 'Vietnamese', 'Korean'
+        ];
+
+
+        const categories = [
+            { name: 'Bitcoin', icon: 'fab fa-bitcoin', description: 'General Bitcoin education and fundamentals' },
+            { name: 'Cypherpunk', icon: 'fas fa-mask', description: 'Privacy, cryptography, and digital rights' },
+            { name: 'History of Money', icon: 'fas fa-coins', description: 'Monetary history and sound money principles' },
+            { name: 'Mining', icon: 'fas fa-pickaxe', description: 'Bitcoin mining, hardware, and operations' },
+            { name: 'Nostr', icon: 'fas fa-network-wired', description: 'Decentralized social networking protocol' },
+            { name: 'Bitcoin Philosophy', icon: 'fas fa-brain', description: 'Austrian economics and libertarian thought' }
+        ];
+
+
+        // Sample courses data
+        let courses = [
+            {
+                id: 1,
+                title: 'Introduction to Bitcoin',
+                description: 'Comprehensive course covering Bitcoin basics, blockchain technology, and digital money fundamentals.',
+                institution: 'Bitcoin University',
+                language: 'English',
+                category: 'Bitcoin',
+                difficulty: 'Beginner',
+                format: 'Online',
+                duration: '4 weeks',
+                link: 'https://example.com/bitcoin-intro',
+                contact: 'info@bitcoinuniversity.com',
+                dateAdded: new Date('2024-01-15'),
+                cancelled: false,
+                cancelledDate: null,
+                cancelReason: '',
+                cancelComments: ''
+            },
+            {
+                id: 2,
+                title: 'Cypherpunk Manifesto Study',
+                description: 'Deep dive into the cypherpunk movement, cryptographic privacy, and digital rights advocacy.',
+                institution: 'Crypto Academy',
+                language: 'English',
+                category: 'Cypherpunk',
+                difficulty: 'Intermediate',
+                format: 'Online',
+                duration: '6 weeks',
+                link: 'https://example.com/cypherpunk',
+                contact: 'learn@cryptoacademy.org',
+                dateAdded: new Date('2024-01-20'),
+                cancelled: false,
+                cancelledDate: null,
+                cancelReason: '',
+                cancelComments: ''
+            },
+            {
+                id: 3,
+                title: 'Historia del Dinero y Bitcoin',
+                description: 'Análisis histórico del dinero desde el trueque hasta Bitcoin, explorando el patrón oro y la evolución monetaria.',
+                institution: 'Instituto Bitcoin Hispano',
+                language: 'Spanish',
+                category: 'History of Money',
+                difficulty: 'Beginner',
+                format: 'Hybrid',
+                duration: '8 weeks',
+                link: 'https://example.com/historia-dinero',
+                contact: 'contacto@bitcoinhispano.org',
+                dateAdded: new Date('2024-01-25'),
+                cancelled: false,
+                cancelledDate: null,
+                cancelReason: '',
+                cancelComments: ''
+            },
+            {
+                id: 4,
+                title: 'Bitcoin Mining Operations',
+                description: 'Technical course on Bitcoin mining hardware, pool operations, energy management, and profitability analysis.',
+                institution: 'Mining Institute',
+                language: 'English',
+                category: 'Mining',
+                difficulty: 'Advanced',
+                format: 'Online',
+                duration: '12 weeks',
+                link: 'https://example.com/mining-ops',
+                contact: 'tech@mininginstitute.com',
+                dateAdded: new Date('2024-02-01'),
+                cancelled: false,
+                cancelledDate: null,
+                cancelReason: '',
+                cancelComments: ''
+            },
+            {
+                id: 5,
+                title: 'Nostr Protocol Development',
+                description: 'Learn to build decentralized applications on the Nostr protocol, covering relays, clients, and NIPs.',
+                institution: 'Decentralized Tech School',
+                language: 'English',
+                category: 'Nostr',
+                difficulty: 'Advanced',
+                format: 'Online',
+                duration: '10 weeks',
+                link: 'https://example.com/nostr-dev',
+                contact: 'dev@decentralizedtech.edu',
+                dateAdded: new Date('2024-02-05'),
+                cancelled: false,
+                cancelledDate: null,
+                cancelReason: '',
+                cancelComments: ''
+            },
+            {
+                id: 6,
+                title: 'Austrian Economics and Bitcoin',
+                description: 'Philosophical foundations of Bitcoin through Austrian economic theory, sound money, and individual sovereignty.',
+                institution: 'Austrian Philosophy Academy',
+                language: 'English',
+                category: 'Bitcoin Philosophy',
+                difficulty: 'Intermediate',
+                format: 'Online',
+                duration: '6 weeks',
+                link: 'https://example.com/austrian-bitcoin',
+                contact: 'philosophy@austrianacademy.org',
+                dateAdded: new Date('2024-02-10'),
+                cancelled: false,
+                cancelledDate: null,
+                cancelReason: '',
+                cancelComments: ''
+            }
+        ];
+
+
+        // State management
+        let currentSection = 'all';
+        let currentFilters = {
+            language: '',
+            category: '',
+            difficulty: '',
+            format: '',
+            search: '',
+            showCancelled: false
+        };
+        let courseToCancel = null;
+
+
+        // Initialize the application
+        function init() {
+            loadCoursesFromStorage();
+            createLanguageFilters();
+            createCategoryFilters();
+            populateFormSelects();
+            renderCourses();
+            updateStats();
+            bindEvents();
+            showSection('all');
+        }
+
+
+        // Local storage functions
+        function saveCoursesToStorage() {
+            localStorage.setItem('temple_academy_courses', JSON.stringify(courses));
+        }
+
+
+        function loadCoursesFromStorage() {
+            const stored = localStorage.getItem('temple_academy_courses');
+            if (stored) {
+                courses = JSON.parse(stored).map(course => ({
+                    ...course,
+                    dateAdded: new Date(course.dateAdded),
+                    cancelledDate: course.cancelledDate ? new Date(course.cancelledDate) : null
+                }));
+            }
+        }
+
+
+        // Create filter buttons
+        function createLanguageFilters() {
+            const container = document.getElementById('language-filters');
+            languages.forEach(language => {
+                const button = document.createElement('button');
+                button.className = 'filter-button px-3 py-1 text-sm border border-gray-300 rounded-full hover:bg-gray-100';
+                button.textContent = language;
+                button.onclick = () => setFilter('language', language);
+                container.appendChild(button);
+            });
+        }
+
+
+        function createCategoryFilters() {
+            const container = document.getElementById('category-filters');
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = 'filter-button px-3 py-1 text-sm border border-gray-300 rounded-full hover:bg-gray-100';
+                button.innerHTML = `<i class="${category.icon} mr-1"></i>${category.name}`;
+                button.onclick = () => setFilter('category', category.name);
+                container.appendChild(button);
+            });
+        }
+
+
+        // Populate form selects
+        function populateFormSelects() {
+            const languageSelect = document.getElementById('course-language');
+            const categorySelect = document.getElementById('course-category');
+
+
+            languages.forEach(language => {
+                const option = document.createElement('option');
+                option.value = language;
+                option.textContent = language;
+                languageSelect.appendChild(option);
+            });
+
+
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.name;
+                option.textContent = category.name;
+                categorySelect.appendChild(option);
+            });
+        }
+
+
+        // Navigation functions
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            
+            // Show selected section
+            document.getElementById(`section-${section}`).classList.remove('hidden');
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-700');
+                btn.classList.add('hover:bg-gray-700');
+            });
+            document.getElementById(`nav-${section}`).classList.add('bg-gray-700');
+            
+            currentSection = section;
+
+
+            // Render content based on section
+            if (section === 'languages') {
+                renderLanguagesGrid();
+            } else if (section === 'categories') {
+                renderCategoriesGrid();
+            }
+        }
+
+
+        // Filter functions
+        function setFilter(type, value) {
+            if (currentFilters[type] === value) {
+                currentFilters[type] = '';
+            } else {
+                currentFilters[type] = value;
+            }
+            
+            updateFilterButtons();
+            renderCourses();
+        }
+
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+
+            if (currentFilters.language) {
+                const langButton = Array.from(document.querySelectorAll('#language-filters .filter-button'))
+                    .find(btn => btn.textContent === currentFilters.language);
+                if (langButton) langButton.classList.add('active');
+            }
+
+
+            if (currentFilters.category) {
+                const catButton = Array.from(document.querySelectorAll('#category-filters .filter-button'))
+                    .find(btn => btn.textContent.includes(currentFilters.category));
+                if (catButton) catButton.classList.add('active');
+            }
+        }
+
+
+        function clearAllFilters() {
+            currentFilters = {
+                language: '',
+                category: '',
+                difficulty: '',
+                format: '',
+                search: '',
+                showCancelled: currentFilters.showCancelled
+            };
+            
+            document.getElementById('difficulty-filter').value = '';
+            document.getElementById('format-filter').value = '';
+            document.getElementById('search-input').value = '';
+            
+            updateFilterButtons();
+            renderCourses();
+        }
+
+
+        // Cancellation functions
+        function openCancellationModal(courseId) {
+            courseToCancel = courseId;
+            document.getElementById('cancellation-modal').classList.add('show');
+            document.getElementById('cancel-reason').value = '';
+            document.getElementById('cancel-comments').value = '';
+        }
+
+
+        function closeCancellationModal() {
+            courseToCancel = null;
+            document.getElementById('cancellation-modal').classList.remove('show');
+        }
+
+
+        function confirmCancellation() {
+            if (!courseToCancel) return;
+
+
+            const course = courses.find(c => c.id === courseToCancel);
+            if (course && !course.cancelled) {
+                course.cancelled = true;
+                course.cancelledDate = new Date();
+                course.cancelReason = document.getElementById('cancel-reason').value;
+                course.cancelComments = document.getElementById('cancel-comments').value;
+                
+                saveCoursesToStorage();
+                updateStats();
+                renderCourses();
+                
+                closeCancellationModal();
+                
+                alert('Course has been marked as cancelled. Thank you for helping keep the directory up to date!');
+            }
+        }
+
+
+        function undoCancellation(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (course && course.cancelled) {
+                const confirmUndo = confirm('Are you sure you want to mark this course as active again?');
+                if (confirmUndo) {
+                    course.cancelled = false;
+                    course.cancelledDate = null;
+                    course.cancelReason = '';
+                    course.cancelComments = '';
+                    
+                    saveCoursesToStorage();
+                    updateStats();
+                    renderCourses();
+                    
+                    alert('Course has been reactivated successfully!');
+                }
+            }
+        }
+
+
+        // Render functions
+        function renderCourses() {
+            const container = document.getElementById('courses-grid');
+            const noResults = document.getElementById('no-results');
+            
+            const filteredCourses = filterCourses();
+            
+            if (filteredCourses.length === 0) {
+                container.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+            
+            noResults.classList.add('hidden');
+            container.innerHTML = filteredCourses.map(course => createCourseCard(course)).join('');
+        }
+
+
+        function filterCourses() {
+            return courses.filter(course => {
+                const matchesBasicFilters = (
+                    (!currentFilters.language || course.language === currentFilters.language) &&
+                    (!currentFilters.category || course.category === currentFilters.category) &&
+                    (!currentFilters.difficulty || course.difficulty === currentFilters.difficulty) &&
+                    (!currentFilters.format || course.format === currentFilters.format) &&
+                    (!currentFilters.search || 
+                        course.title.toLowerCase().includes(currentFilters.search.toLowerCase()) ||
+                        course.description.toLowerCase().includes(currentFilters.search.toLowerCase()) ||
+                        course.institution.toLowerCase().includes(currentFilters.search.toLowerCase())
+                    )
+                );
+
+
+                // Filter by cancellation status
+                if (currentFilters.showCancelled) {
+                    return matchesBasicFilters; // Show both cancelled and active
+                } else {
+                    return matchesBasicFilters && !course.cancelled; // Show only active
+                }
+            });
+        }
+
+
+        function createCourseCard(course) {
+            const category = categories.find(c => c.name === course.category);
+            const categoryIcon = category ? category.icon : 'fas fa-book';
+            const isCancelled = course.cancelled;
+            
+            const cancelledBadge = isCancelled ? '<div class="cancelled-badge">CANCELLED</div>' : '';
+            const cancelledClass = isCancelled ? 'cancelled' : '';
+            
+            const actionButton = isCancelled 
+                ? `<button onclick="undoCancellation(${course.id})" class="px-3 py-1 text-xs bg-green-600 text-white rounded-md hover:bg-green-700">
+                     <i class="fas fa-undo mr-1"></i>Reactivate
+                   </button>`
+                : `<button onclick="openCancellationModal(${course.id})" class="report-cancel-btn">
+                     <i class="fas fa-exclamation-triangle mr-1"></i>Report Cancelled
+                   </button>`;
+            
+            const linkWarning = isCancelled 
+                ? `<div class="text-xs text-red-600 mb-2">
+                     <i class="fas fa-exclamation-triangle mr-1"></i>
+                     This course has been reported as cancelled
+                   </div>`
+                : '';
+
+
+            const cancellationInfo = isCancelled && course.cancelReason
+                ? `<div class="text-xs text-gray-600 mb-2">
+                     <strong>Reason:</strong> ${course.cancelReason}
+                     ${course.cancelComments ? `<br><strong>Details:</strong> ${course.cancelComments}` : ''}
+                     <br><strong>Reported:</strong> ${course.cancelledDate.toLocaleDateString()}
+                   </div>`
+                : '';
+            
+            return `
+                <div class="course-card bg-white rounded-lg shadow-md p-6 ${cancelledClass}">
+                    ${cancelledBadge}
+                    ${actionButton}
+                    
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="${categoryIcon} text-2xl bitcoin-orange mr-3"></i>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-1">${course.title}</h3>
+                                <p class="text-sm text-gray-600">${course.institution}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">
+                                ${course.language}
+                            </span>
+                            <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                                ${course.difficulty}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-700 mb-4 text-sm leading-relaxed">${course.description}</p>
+                    
+                    <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                        <div class="flex items-center space-x-4">
+                            <span><i class="fas fa-tag mr-1"></i>${course.category}</span>
+                            <span><i class="fas fa-clock mr-1"></i>${course.duration || 'Self-paced'}</span>
+                            <span><i class="fas fa-laptop mr-1"></i>${course.format}</span>
+                        </div>
+                    </div>
+                    
+                    ${linkWarning}
+                    ${cancellationInfo}
+                    
+                    <div class="flex justify-between items-center">
+                        <div class="text-xs text-gray-500">
+                            Added ${course.dateAdded.toLocaleDateString()}
+                        </div>
+                        <a href="${course.link}" target="_blank" rel="noopener noreferrer" 
+                           class="px-4 py-2 ${isCancelled ? 'bg-gray-500' : 'bitcoin-orange-bg'} text-white text-sm font-medium rounded-md hover:${isCancelled ? 'bg-gray-600' : 'bg-yellow-600'} transition duration-200"
+                           ${isCancelled ? 'onclick="return confirm(\'This course has been reported as cancelled. Continue anyway?\')"' : ''}>
+                            <i class="fas fa-external-link-alt mr-2"></i>View Course
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+
+        function renderLanguagesGrid() {
+            const container = document.getElementById('languages-grid');
+            const languageStats = {};
+            
+            languages.forEach(lang => {
+                const activeCourses = courses.filter(course => course.language === lang && !course.cancelled);
+                languageStats[lang] = activeCourses.length;
+            });
+            
+            container.innerHTML = languages.map(language => `
+                <div class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 cursor-pointer transition duration-200"
+                     onclick="setFilter('language', '${language}'); showSection('all');">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-medium text-gray-900">${language}</h3>
+                        <span class="text-2xl font-bold bitcoin-orange">${languageStats[language]}</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-1">${languageStats[language]} active courses</p>
+                </div>
+            `).join('');
+        }
+
+
+        function renderCategoriesGrid() {
+            const container = document.getElementById('categories-grid');
+            
+            container.innerHTML = categories.map(category => {
+                const activeCourses = courses.filter(course => course.category === category.name && !course.cancelled);
+                const courseCount = activeCourses.length;
+                return `
+                    <div class="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 cursor-pointer transition duration-200"
+                         onclick="setFilter('category', '${category.name}'); showSection('all');">
+                        <div class="flex items-center mb-4">
+                            <i class="${category.icon} text-3xl bitcoin-orange mr-4"></i>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">${category.name}</h3>
+                                <p class="text-sm text-gray-600">${courseCount} active courses</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 text-sm">${category.description}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+
+        function updateStats() {
+            document.getElementById('total-courses').textContent = courses.length;
+            
+            const activeCourses = courses.filter(course => !course.cancelled);
+            document.getElementById('active-courses').textContent = activeCourses.length;
+            
+            const cancelledCourses = courses.filter(course => course.cancelled);
+            document.getElementById('cancelled-courses').textContent = cancelledCourses.length;
+            
+            const uniqueInstitutions = new Set(activeCourses.map(course => course.institution));
+            document.getElementById('total-institutions').textContent = uniqueInstitutions.size;
+        }
+
+
+        // Form submission
+        function handleFormSubmission(event) {
+            event.preventDefault();
+            
+            const formData = {
+                id: Date.now(),
+                title: document.getElementById('course-title').value,
+                description: document.getElementById('course-description').value,
+                institution: document.getElementById('course-institution').value,
+                language: document.getElementById('course-language').value,
+                category: document.getElementById('course-category').value,
+                difficulty: document.getElementById('course-difficulty').value,
+                format: document.getElementById('course-format').value,
+                duration: document.getElementById('course-duration').value,
+                link: document.getElementById('course-link').value,
+                contact: document.getElementById('course-contact').value,
+                dateAdded: new Date(),
+                cancelled: false,
+                cancelledDate: null,
+                cancelReason: '',
+                cancelComments: ''
+            };
+            
+            courses.unshift(formData);
+            saveCoursesToStorage();
+            updateStats();
+            
+            // Reset form
+            document.getElementById('submit-form').reset();
+            
+            // Show success message
+            alert('Course submitted successfully! It has been added to the directory.');
+            
+            // Switch to all courses view
+            showSection('all');
+            renderCourses();
+        }
+
+
+        // Event binding
+        function bindEvents() {
+            // Navigation
+            document.getElementById('nav-all').onclick = () => showSection('all');
+            document.getElementById('nav-languages').onclick = () => showSection('languages');
+            document.getElementById('nav-categories').onclick = () => showSection('categories');
+            document.getElementById('nav-submit').onclick = () => showSection('submit');
+            
+            // Search
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                currentFilters.search = e.target.value;
+                renderCourses();
+            });
+            
+            // Show cancelled toggle
+            document.getElementById('show-cancelled-toggle').addEventListener('change', (e) => {
+                currentFilters.showCancelled = e.target.checked;
+                renderCourses();
+            });
+            
+            // Filters
+            document.getElementById('difficulty-filter').addEventListener('change', (e) => {
+                currentFilters.difficulty = e.target.value;
+                renderCourses();
+            });
+            
+            document.getElementById('format-filter').addEventListener('change', (e) => {
+                currentFilters.format = e.target.value;
+                renderCourses();
+            });
+            
+            document.getElementById('clear-filters').onclick = clearAllFilters;
+            
+            // Form submission
+            document.getElementById('submit-form').addEventListener('submit', handleFormSubmission);
+            
+            // Modal events
+            document.getElementById('cancel-modal-btn').onclick = closeCancellationModal;
+            document.getElementById('confirm-cancel-btn').onclick = confirmCancellation;
+            
+            // Close modal when clicking outside
+            document.getElementById('cancellation-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'cancellation-modal') {
+                    closeCancellationModal();
+                }
+            });
+        }
+
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
