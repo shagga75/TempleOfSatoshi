@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Podcasts Directory</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/system.css/0.1.0/system.min.css">
+    <style>
+        body {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .window {
+            margin-bottom: 30px;
+        }
+        .title-bar {
+            background: linear-gradient(90deg, #008080, #006060);
+            color: white;
+            padding: 8px 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .content {
+            padding: 20px;
+            background: #c0c0c0;
+            border: 2px inset #c0c0c0;
+        }
+        .podcast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .podcast-card {
+            background: #f0f0f0;
+            border: 2px outset #c0c0c0;
+            padding: 15px;
+            border-radius: 0;
+        }
+        .podcast-card h3 {
+            margin: 0 0 10px 0;
+            color: #000080;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .podcast-card p {
+            margin: 8px 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .podcast-link {
+            display: inline-block;
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            padding: 4px 8px;
+            text-decoration: none;
+            color: #000;
+            font-size: 12px;
+            margin-top: 8px;
+            transition: all 0.1s;
+        }
+        .podcast-link:hover {
+            border: 1px inset #c0c0c0;
+            background: #a0a0a0;
+        }
+        .section-header {
+            background: #008080;
+            color: white;
+            padding: 10px 15px;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .bitcoin-icon {
+            margin-right: 8px;
+        }
+        .language-flag {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="title-bar">
+            <span class="bitcoin-icon">₿</span>
+            Bitcoin Podcasts Directory
+        </div>
+        <div class="content">
+            <p>A comprehensive directory of Bitcoin podcasts in English and Spanish, featuring the most influential voices in the Bitcoin ecosystem.</p>
+            
+            <div class="section-header">
+                <span class="language-flag">🇺🇸</span>English Bitcoin Podcasts
+            </div>
+            
+            <div class="podcast-grid">
+                <div class="podcast-card">
+                    <h3>Peter McCormack - What Bitcoin Did</h3>
+                    <p>One of the most popular Bitcoin-focused podcasts. Peter interviews a wide range of guests, including journalists, economists, and educators, to provide a comprehensive view of the Bitcoin ecosystem.</p>
+                    <a href="https://www.whatbitcoindid.com/" class="podcast-link" target="_blank">Visit Website</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Anthony Pompliano - The Pomp Podcast</h3>
+                    <p>Known as "Pomp," Anthony interviews influential figures in business, finance, and Bitcoin. While his podcast covers broader finance and entrepreneurship, Bitcoin remains a core topic.</p>
+                    <a href="https://www.pompinvestments.com/podcast" class="podcast-link" target="_blank">Visit Website</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Marty Bent - TFTC: A Bitcoin Podcast</h3>
+                    <p>Focuses specifically on Bitcoin, offering in-depth conversations about various topics within the Bitcoin world, economics, and technology. Known for its "no-nonsense" style.</p>
+                    <a href="https://tftc.io/" class="podcast-link" target="_blank">Visit TFTC.io</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Laura Shin - Unchained</h3>
+                    <p>Former Forbes senior editor Laura Shin interviews industry pioneers and delves into the biggest headlines in the cryptocurrency world, including Bitcoin.</p>
+                    <a href="https://unchainedpodcast.com/" class="podcast-link" target="_blank">Visit Unchained Crypto</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Stephan Livera Podcast</h3>
+                    <p>Focuses on the economics and technology of Bitcoin, interviewing developers, economists, investors, and industry leaders to share their insights.</p>
+                    <a href="https://stephanlivera.com/" class="podcast-link" target="_blank">Visit Website</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Robert Breedlove - The "What is Money?" Show</h3>
+                    <p>Explores the philosophy of money and how Bitcoin could redefine it, often diving deep into the historical and sociological aspects of currency.</p>
+                    <a href="https://whatismoneypodcast.com/" class="podcast-link" target="_blank">Visit What is Money Show</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Preston Pysh - Bitcoin Fundamentals</h3>
+                    <p>Discusses the fundamentals of Bitcoin, investing in Bitcoin, and deep dives into blockchain technology, often featuring prominent figures like Michael Saylor.</p>
+                    <a href="https://www.theinvestorspodcast.com/bitcoin-fundamentals/" class="podcast-link" target="_blank">Visit Bitcoin Fundamentals</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Natalie Brunell - Coin Stories</h3>
+                    <p>Features in-depth interviews with thought leaders in the Bitcoin and cryptocurrency space, exploring topics such as the future of money and Bitcoin's potential.</p>
+                    <a href="https://www.audible.com/pd/Coin-Stories-with-Natalie-Brunell-Podcast/B08K4QJW8V" class="podcast-link" target="_blank">Listen on Audible</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Guy Swann - Bitcoin Audible</h3>
+                    <p>Makes Bitcoin knowledge accessible by reading and distilling thousands of hours of Bitcoin works, covering investment, economic analysis, philosophical foundations, and technological primitives.</p>
+                    <a href="https://bitcoinaudible.com/" class="podcast-link" target="_blank">Visit Bitcoin Audible</a>
+                    <a href="https://podcasts.apple.com/us/podcast/bitcoin-audible/id1359544516" class="podcast-link" target="_blank">Apple Podcasts</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Nik Bhatia - The Bitcoin Layer</h3>
+                    <p>Offers a sophisticated exploration of Bitcoin through a global macroeconomic lens, drawing on expertise as an author and professor.</p>
+                    <a href="https://thebitcoinlayer.com/" class="podcast-link" target="_blank">Visit The Bitcoin Layer</a>
+                </div>
+            </div>
+            
+            <div class="section-header">
+                <span class="language-flag">🇪🇸</span>Podcasts de Bitcoin en Español
+            </div>
+            
+            <div class="podcast-grid">
+                <div class="podcast-card">
+                    <h3>Lunaticoin</h3>
+                    <p>Uno de los podcasts de referencia en el ecosistema Bitcoin en español. Una voz influyente que ofrece análisis profundos y entrevistas sobre la tecnología, economía y filosofía de Bitcoin.</p>
+                    <a href="https://lunaticoin.com/" class="podcast-link" target="_blank">Visit Lunaticoin.com</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Un Podcast Sobre Bitcoin (UPSB)</h3>
+                    <p>Presentado por Alberto Mera, este podcast se define como "maximalista" de Bitcoin, ofreciendo una perspectiva muy enfocada en las propiedades únicas de Bitcoin y su impacto en la economía global.</p>
+                    <a href="https://anchor.fm/unpodcastsobrebitcoin" class="podcast-link" target="_blank">Listen on Anchor/Spotify</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Hablando Crypto</h3>
+                    <p>Aunque cubre un espectro más amplio de criptomonedas, Óscar y Cristian a menudo dedican episodios significativos a Bitcoin. Uno de los más populares y con buenas reseñas.</p>
+                    <a href="https://open.spotify.com/show/4yYz8jGjLQl8eKQHqJKrRe" class="podcast-link" target="_blank">Listen on Spotify</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Bitcoin en español</h3>
+                    <p>Ofrece noticias, reseñas, análisis y opiniones para ayudar a entender qué es Bitcoin, cómo utilizarlo y cómo incluirlo en la vida cotidiana o en emprendimientos.</p>
+                    <a href="https://podcasts.apple.com/us/podcast/bitcoin-en-espa%C3%B1ol/id1445043632" class="podcast-link" target="_blank">Apple Podcasts</a>
+                    <a href="https://cursosbitcoin.com/" class="podcast-link" target="_blank">Cursos Bitcoin</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Club Cripto</h3>
+                    <p>David y Pablo abordan el mundo de las criptomonedas de forma amena y coloquial. Excelente opción para comprender los misterios del espacio cripto, incluyendo discusiones sobre Bitcoin.</p>
+                    <a href="https://open.spotify.com/show/6XYsGLuRSKo5kZeEzH8kMH" class="podcast-link" target="_blank">Listen on Spotify</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>BTC en Español</h3>
+                    <p>Canal de YouTube que también funciona como podcast. Una fuente muy activa de información sobre Bitcoin, desde lo básico para principiantes hasta temas más avanzados.</p>
+                    <a href="https://www.youtube.com/c/BitcoinenEspa%C3%B1ol" class="podcast-link" target="_blank">YouTube Channel</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Territorio Bitcoin</h3>
+                    <p>Podcast bien establecido que se enfoca en las noticias y el análisis del espacio de Bitcoin y criptomonedas, ofreciendo diferentes perspectivas.</p>
+                    <a href="https://www.ivoox.com/podcast-territorio-bitcoin_sq_f1855967_1.html" class="podcast-link" target="_blank">Listen on iVoox</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>CriptoHispano</h3>
+                    <p>Un espacio para explorar el fascinante mundo de Bitcoin, criptomonedas y blockchain en español, con análisis de mercado, noticias y explicaciones sencillas.</p>
+                    <a href="https://podcasts.apple.com/us/podcast/criptohispanos/id1450721659" class="podcast-link" target="_blank">Apple Podcasts</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>BTCANDRES</h3>
+                    <p>Canal de YouTube enfocado en contenido educativo sobre Bitcoin y criptomonedas en español.</p>
+                    <a href="https://www.youtube.com/@BTCAndres" class="podcast-link" target="_blank">YouTube Channel</a>
+                </div>
+                
+                <div class="podcast-card">
+                    <h3>Juan Rodríguez</h3>
+                    <p>Bitcoiner y divulgador de contenido en español. Sus participaciones en podcasts y su canal de YouTube son una excelente fuente de información sobre Bitcoin desde una perspectiva de libertad y certeza.</p>
+                    <a href="https://www.youtube.com/c/JuanRodriguezBitcoin" class="podcast-link" target="_blank">YouTube Channel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

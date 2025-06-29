@@ -1,0 +1,886 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Whitepapers International Collection</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .widget-container {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .widget-container * {
+            box-sizing: border-box;
+        }
+        .paper-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+        .paper-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .flag-emoji {
+            font-size: 1.5em;
+            margin-right: 8px;
+        }
+        .search-input {
+            border: 2px solid #d1d5db;
+            transition: border-color 0.3s ease;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .original-badge {
+            background: linear-gradient(45deg, #f59e0b, #d97706);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .country-name {
+            font-weight: 600;
+            color: #374151;
+        }
+        .language-name {
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+        .pdf-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .pdf-link:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+        @media (max-width: 640px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                padding: 0.5rem;
+            }
+        }
+        .header-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="widget-container">
+        <div class="header-section">
+            <h1 class="text-3xl font-bold mb-2">
+                <i class="fab fa-bitcoin text-yellow-300 mr-2"></i>
+                Bitcoin Whitepapers International
+            </h1>
+            <p class="text-lg opacity-90">Complete collection of Bitcoin whitepapers in multiple languages</p>
+            <div class="mt-4 text-sm opacity-80">
+                <i class="fas fa-globe mr-1"></i>
+                47 versions available • Organized alphabetically by country
+            </div>
+        </div>
+
+
+        <div class="px-4 mb-6">
+            <div class="max-w-md mx-auto">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search by country or language..."
+                        class="search-input w-full pl-10 pr-4 py-2 rounded-lg bg-white"
+                    >
+                </div>
+            </div>
+        </div>
+
+
+        <div class="grid-container" id="papersGrid">
+            <!-- Albania -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="albania" data-language="albanian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇦🇱</span>
+                    <div>
+                        <div class="country-name">Albania</div>
+                        <div class="language-name">Albanian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_al.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Armenia -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="armenia" data-language="armenian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇦🇲</span>
+                    <div>
+                        <div class="country-name">Armenia</div>
+                        <div class="language-name">Armenian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_am.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Bangladesh -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="bangladesh" data-language="bengali">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇧🇩</span>
+                    <div>
+                        <div class="country-name">Bangladesh</div>
+                        <div class="language-name">Bengali</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_bn.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Brazil -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="brazil" data-language="portuguese">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇧🇷</span>
+                    <div>
+                        <div class="country-name">Brazil</div>
+                        <div class="language-name">Portuguese (Brazil)</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_pt_br.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- China -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="china" data-language="chinese">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇨🇳</span>
+                    <div>
+                        <div class="country-name">China</div>
+                        <div class="language-name">Chinese (Simplified)</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_zh_cn.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Croatia -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="croatia" data-language="croatian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇭🇷</span>
+                    <div>
+                        <div class="country-name">Croatia</div>
+                        <div class="language-name">Croatian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_hr.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Czech Republic -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="czech" data-language="czech">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇨🇿</span>
+                    <div>
+                        <div class="country-name">Czech Republic</div>
+                        <div class="language-name">Czech</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_cz.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Estonia -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="estonia" data-language="estonian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇪🇪</span>
+                    <div>
+                        <div class="country-name">Estonia</div>
+                        <div class="language-name">Estonian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_et.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Ethiopia -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="ethiopia" data-language="amharic">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇪🇹</span>
+                    <div>
+                        <div class="country-name">Ethiopia</div>
+                        <div class="language-name">Amharic</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_amh.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Finland -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="finland" data-language="finnish">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇫🇮</span>
+                    <div>
+                        <div class="country-name">Finland</div>
+                        <div class="language-name">Finnish</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_fi.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- France -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="france" data-language="french">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇫🇷</span>
+                    <div>
+                        <div class="country-name">France</div>
+                        <div class="language-name">French</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_fr.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Germany -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="germany" data-language="german">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇩🇪</span>
+                    <div>
+                        <div class="country-name">Germany</div>
+                        <div class="language-name">German</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_de.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Greece -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="greece" data-language="greek">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇬🇷</span>
+                    <div>
+                        <div class="country-name">Greece</div>
+                        <div class="language-name">Greek</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_gr.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Hungary -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="hungary" data-language="hungarian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇭🇺</span>
+                    <div>
+                        <div class="country-name">Hungary</div>
+                        <div class="language-name">Hungarian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_hu.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Iceland -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="iceland" data-language="icelandic">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇮🇸</span>
+                    <div>
+                        <div class="country-name">Iceland</div>
+                        <div class="language-name">Icelandic</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_is.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- India - Hindi -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="india" data-language="hindi">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇮🇳</span>
+                    <div>
+                        <div class="country-name">India</div>
+                        <div class="language-name">Hindi</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_hi.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- India - Malayalam -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="india" data-language="malayalam">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇮🇳</span>
+                    <div>
+                        <div class="country-name">India</div>
+                        <div class="language-name">Malayalam</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_ml.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- India - Marathi -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="india" data-language="marathi">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇮🇳</span>
+                    <div>
+                        <div class="country-name">India</div>
+                        <div class="language-name">Marathi</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_mr.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- India - Tamil -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="india" data-language="tamil">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇮🇳</span>
+                    <div>
+                        <div class="country-name">India</div>
+                        <div class="language-name">Tamil</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_ta.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- India - Telugu -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="india" data-language="telugu">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇮🇳</span>
+                    <div>
+                        <div class="country-name">India</div>
+                        <div class="language-name">Telugu</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_te.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Indonesia -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="indonesia" data-language="indonesian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇮🇩</span>
+                    <div>
+                        <div class="country-name">Indonesia</div>
+                        <div class="language-name">Indonesian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_id.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Iran -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="iran" data-language="persian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇮🇷</span>
+                    <div>
+                        <div class="country-name">Iran</div>
+                        <div class="language-name">Persian (Farsi)</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_fa.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Israel -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="israel" data-language="hebrew">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇮🇱</span>
+                    <div>
+                        <div class="country-name">Israel</div>
+                        <div class="language-name">Hebrew</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_iw.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Italy -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="italy" data-language="italian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇮🇹</span>
+                    <div>
+                        <div class="country-name">Italy</div>
+                        <div class="language-name">Italian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_it.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Japan -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="japan" data-language="japanese">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇯🇵</span>
+                    <div>
+                        <div class="country-name">Japan</div>
+                        <div class="language-name">Japanese</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_jp.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- South Korea -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="korea" data-language="korean">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇰🇷</span>
+                    <div>
+                        <div class="country-name">South Korea</div>
+                        <div class="language-name">Korean</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_ko.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Lithuania -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="lithuania" data-language="lithuanian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇱🇹</span>
+                    <div>
+                        <div class="country-name">Lithuania</div>
+                        <div class="language-name">Lithuanian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_lt.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Nepal -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="nepal" data-language="nepali">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇳🇵</span>
+                    <div>
+                        <div class="country-name">Nepal</div>
+                        <div class="language-name">Nepali</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_np.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Netherlands -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="netherlands" data-language="dutch">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇳🇱</span>
+                    <div>
+                        <div class="country-name">Netherlands</div>
+                        <div class="language-name">Dutch</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_nl.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Norway -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="norway" data-language="norwegian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇳🇴</span>
+                    <div>
+                        <div class="country-name">Norway</div>
+                        <div class="language-name">Norwegian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_no.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Pakistan -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="pakistan" data-language="urdu">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇵🇰</span>
+                    <div>
+                        <div class="country-name">Pakistan</div>
+                        <div class="language-name">Urdu</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_ur.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Poland -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="poland" data-language="polish">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇵🇱</span>
+                    <div>
+                        <div class="country-name">Poland</div>
+                        <div class="language-name">Polish</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_pl.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Portugal -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="portugal" data-language="portuguese">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇵🇹</span>
+                    <div>
+                        <div class="country-name">Portugal</div>
+                        <div class="language-name">Portuguese</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_pt.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Romania -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="romania" data-language="romanian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇷🇴</span>
+                    <div>
+                        <div class="country-name">Romania</div>
+                        <div class="language-name">Romanian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_ro.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Russia -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="russia" data-language="russian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇷🇺</span>
+                    <div>
+                        <div class="country-name">Russia</div>
+                        <div class="language-name">Russian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_ru.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Saudi Arabia -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="saudi" data-language="arabic">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇸🇦</span>
+                    <div>
+                        <div class="country-name">Saudi Arabia</div>
+                        <div class="language-name">Arabic</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_ar.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Serbia -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="serbia" data-language="serbian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇷🇸</span>
+                    <div>
+                        <div class="country-name">Serbia</div>
+                        <div class="language-name">Serbian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_sr.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Slovakia -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="slovakia" data-language="slovak">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇸🇰</span>
+                    <div>
+                        <div class="country-name">Slovakia</div>
+                        <div class="language-name">Slovak</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_sk.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Slovenia -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="slovenia" data-language="slovenian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇸🇮</span>
+                    <div>
+                        <div class="country-name">Slovenia</div>
+                        <div class="language-name">Slovenian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_sl.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Spain -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="spain" data-language="spanish">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇪🇸</span>
+                    <div>
+                        <div class="country-name">Spain</div>
+                        <div class="language-name">Spanish</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_es.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Spain - Basque -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="spain" data-language="basque">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇪🇸</span>
+                    <div>
+                        <div class="country-name">Spain (Basque Region)</div>
+                        <div class="language-name">Basque</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_basque.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Sweden -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="sweden" data-language="swedish">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇸🇪</span>
+                    <div>
+                        <div class="country-name">Sweden</div>
+                        <div class="language-name">Swedish</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_se.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Thailand -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="thailand" data-language="thai">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇹🇭</span>
+                    <div>
+                        <div class="country-name">Thailand</div>
+                        <div class="language-name">Thai</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_th.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Turkey -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="turkey" data-language="turkish">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇹🇷</span>
+                    <div>
+                        <div class="country-name">Turkey</div>
+                        <div class="language-name">Turkish</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_tr.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Ukraine -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="ukraine" data-language="ukrainian">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇺🇦</span>
+                    <div>
+                        <div class="country-name">Ukraine</div>
+                        <div class="language-name">Ukrainian</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_uk.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- United States -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="usa" data-language="english">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇺🇸</span>
+                    <div>
+                        <div class="country-name">United States</div>
+                        <div class="language-name">English</div>
+                    </div>
+                    <span class="original-badge ml-auto">ORIGINAL</span>
+                </div>
+                <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Vietnam -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="vietnam" data-language="vietnamese">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🇻🇳</span>
+                    <div>
+                        <div class="country-name">Vietnam</div>
+                        <div class="language-name">Vietnamese</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_vi.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+
+
+            <!-- Special - Braille -->
+            <div class="paper-card bg-white rounded-lg p-4 shadow-sm" data-country="universal" data-language="braille">
+                <div class="flex items-center mb-3">
+                    <span class="flag-emoji">🌐</span>
+                    <div>
+                        <div class="country-name">Universal</div>
+                        <div class="language-name">Braille</div>
+                    </div>
+                </div>
+                <a href="https://bitcoin.org/files/bitcoin-paper/bitcoin-braille.pdf" target="_blank" class="pdf-link">
+                    <i class="fas fa-file-pdf mr-2"></i>Download PDF
+                </a>
+            </div>
+        </div>
+
+
+        <div class="text-center py-8 text-gray-600">
+            <p class="mb-2">
+                <i class="fas fa-info-circle mr-2"></i>
+                All whitepapers are sourced from bitcoin.org
+            </p>
+            <p class="text-sm">
+                Total: 47 language versions • Last updated: 2024
+            </p>
+        </div>
+    </div>
+
+
+    <script>
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.paper-card');
+            
+            cards.forEach(card => {
+                const country = card.getAttribute('data-country').toLowerCase();
+                const language = card.getAttribute('data-language').toLowerCase();
+                const countryName = card.querySelector('.country-name').textContent.toLowerCase();
+                const languageName = card.querySelector('.language-name').textContent.toLowerCase();
+                
+                if (country.includes(searchTerm) || 
+                    language.includes(searchTerm) || 
+                    countryName.includes(searchTerm) || 
+                    languageName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
