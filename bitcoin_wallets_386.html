@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bitcoin Wallets Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: #008080;
+            color: #c0c0c0;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.4;
+        }
+        
+        .container {
+            background: #c0c0c0;
+            color: #000;
+            border: 4px outset #c0c0c0;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+            max-width: 1000px;
+        }
+        
+        .panel {
+            border: 2px inset #c0c0c0;
+            background: #c0c0c0;
+            margin: 10px 0;
+            box-shadow: none;
+        }
+        
+        .panel-heading {
+            background: #008080;
+            color: #fff;
+            border: 2px outset #008080;
+            font-weight: bold;
+            padding: 8px 15px;
+            margin: 0;
+        }
+        
+        .panel-body {
+            padding: 15px;
+            background: #c0c0c0;
+        }
+        
+        .btn {
+            border: 2px outset #c0c0c0;
+            background: #c0c0c0;
+            color: #000;
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            padding: 4px 12px;
+            margin: 2px;
+        }
+        
+        .btn:hover {
+            border: 2px inset #c0c0c0;
+            background: #a0a0a0;
+            color: #000;
+        }
+        
+        .btn-primary {
+            background: #000080;
+            color: #fff;
+            border: 2px outset #000080;
+        }
+        
+        .btn-primary:hover {
+            background: #000060;
+            border: 2px inset #000080;
+            color: #fff;
+        }
+        
+        .btn-success {
+            background: #008000;
+            color: #fff;
+            border: 2px outset #008000;
+        }
+        
+        .btn-warning {
+            background: #808000;
+            color: #fff;
+            border: 2px outset #808000;
+        }
+        
+        .btn-danger {
+            background: #800000;
+            color: #fff;
+            border: 2px outset #800000;
+        }
+        
+        .table {
+            border: 2px inset #c0c0c0;
+            background: #c0c0c0;
+        }
+        
+        .table th {
+            background: #008080;
+            color: #fff;
+            border: 1px solid #006060;
+            padding: 8px;
+            font-weight: bold;
+        }
+        
+        .table td {
+            border: 1px solid #a0a0a0;
+            padding: 8px;
+            vertical-align: top;
+        }
+        
+        .table-striped > tbody > tr:nth-child(odd) > td {
+            background: #e0e0e0;
+        }
+        
+        h1 {
+            background: #000080;
+            color: #fff;
+            padding: 15px;
+            margin: 0 0 20px 0;
+            border: 4px outset #000080;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        h2 {
+            background: #008080;
+            color: #fff;
+            padding: 10px;
+            margin: 20px 0 10px 0;
+            border: 2px outset #008080;
+            font-size: 18px;
+        }
+        
+        .alert {
+            border: 2px inset #c0c0c0;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .alert-info {
+            background: #add8e6;
+            color: #000080;
+        }
+        
+        .alert-warning {
+            background: #ffffe0;
+            color: #808000;
+        }
+        
+        .alert-danger {
+            background: #ffe0e0;
+            color: #800000;
+        }
+        
+        .well {
+            background: #e0e0e0;
+            border: 2px inset #c0c0c0;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        strong {
+            font-weight: bold;
+        }
+        
+        .category-header {
+            background: linear-gradient(45deg, #000080, #008080);
+            color: #fff;
+            padding: 12px;
+            margin: 15px 0 10px 0;
+            border: 3px outset #000080;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .wallet-name {
+            font-weight: bold;
+            color: #000080;
+        }
+        
+        .security-high { color: #008000; font-weight: bold; }
+        .security-medium { color: #808000; font-weight: bold; }
+        .security-low { color: #800000; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 BITCOIN WALLETS GUIDE 🔐</h1>
+        
+        <div class="alert alert-info">
+            <strong>💡 SYSTEM MESSAGE:</strong> This guide covers hardware, mobile, and desktop wallets for secure Bitcoin storage. Choose based on your technical expertise and security requirements.
+        </div>
+        
+        <div class="category-header">
+            💾 HARDWARE WALLETS
+        </div>
+        
+        <div class="well">
+            <p><strong>DEFINITION:</strong> A hardware wallet is a physical device that serves two functions: securely generating and storing private keys, and signing transactions with the private key to send them. They are called cold wallets because they are never connected to the internet.</p>
+            
+            <p><strong>ADVANTAGE:</strong> You have the option to connect them to your own node without sharing your information with external servers or third parties, thus preventing them from spying on your transactions or how many funds you possess.</p>
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>WALLET NAME</th>
+                    <th>DESCRIPTION</th>
+                    <th>SECURITY LEVEL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="wallet-name">ColdCard Wallet</td>
+                    <td>For advanced users with many available options. There's no need to connect it to a computer as it uses microSD for transactions.</td>
+                    <td><span class="security-high">HIGH</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Trezor</td>
+                    <td>One of the most popular devices, along with Ledger. It has 3 different models: One, Model T, and Safe 3. <span class="security-low">*It does not have a secure element (except for the Safe 3 model) and there is a possibility of extracting the seed with physical access to the device. It's mandatory to add a passphrase to the recovery words. We do NOT recommend using the 'ONE' model.</span></td>
+                    <td><span class="security-medium">MEDIUM</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Ledger</td>
+                    <td><span class="security-low">Closed-source hardware wallet dependent on its native Ledger Live application. We do not recommend its use for storing Bitcoin. Several personal data hacks of buyers have occurred. High risk of attack.</span></td>
+                    <td><span class="security-low">LOW</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Bitbox02</td>
+                    <td>Open-source hardware wallet from Switzerland. Ideal for novice and intermediate users.</td>
+                    <td><span class="security-high">HIGH</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Specter DIY</td>
+                    <td>A project to make your own hardware wallet. For advanced users.</td>
+                    <td><span class="security-high">HIGH</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Seedsigner</td>
+                    <td>A project to make your own hardware wallet focused on multisignatures. For advanced users.</td>
+                    <td><span class="security-high">HIGH</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Passport</td>
+                    <td>Hardware wallet created by Foundation Devices. It has the same secure element and a similar interface to Coldcard. Easy to use and versatile. It's wireless and supports QR codes and MicroSD.</td>
+                    <td><span class="security-high">HIGH</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="category-header">
+            📱 MOBILE WALLETS
+        </div>
+        
+        <div class="alert alert-warning">
+            <strong>⚠️ SECURITY NOTE:</strong> Some mobile wallets offer the option to connect to your node (except Green wallet) without having to share your transaction and fund information with company servers.
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>WALLET NAME</th>
+                    <th>PLATFORM</th>
+                    <th>DESCRIPTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="wallet-name">Samourai Wallet</td>
+                    <td><span class="btn btn-success btn-xs">ANDROID</span></td>
+                    <td>Non-custodial wallet with multiple privacy tools (Android only). Allows connection to your own node via Dojo. It also has coinjoin and post-spend tools, and features coin control.</td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">FullyNoded</td>
+                    <td><span class="btn btn-primary btn-xs">iOS</span> <span class="btn btn-primary btn-xs">macOS</span></td>
+                    <td>FullyNoded 2 is an open-source wallet that connects via the authenticated Tor V3 service to your own full Bitcoin node. It features coin control.</td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">BlueWallet</td>
+                    <td><span class="btn btn-primary btn-xs">iOS</span> <span class="btn btn-success btn-xs">ANDROID</span></td>
+                    <td>A feature-rich and easy-to-use wallet. Allows connection to your own node via an Electrum server. Integration with Coldcard wallet. Coin control enabled.</td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Green by Blockstream</td>
+                    <td><span class="btn btn-primary btn-xs">iOS</span> <span class="btn btn-success btn-xs">ANDROID</span></td>
+                    <td>Green is a Bitcoin wallet that provides users with a good combination of security and ease of use. A good option to try it via Testnet.</td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Sentinel</td>
+                    <td><span class="btn btn-success btn-xs">ANDROID</span></td>
+                    <td>A 'watch-only' wallet. It allows you to send funds to that wallet but not spend from it. To do this, you need to import the 'XPUB' (extended public key) of your wallet. A good way to improve your security. It can be connected to a node through Dojo from Samourai Wallet.</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="category-header">
+            💻 DESKTOP WALLETS
+        </div>
+        
+        <div class="well">
+            <strong>FEATURES:</strong> Desktop wallets with the best features for the user. Some of them allow connection to your node, thus not sharing your transaction and fund information with external servers.
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>WALLET NAME</th>
+                    <th>DESCRIPTION</th>
+                    <th>RECOMMENDED FOR</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="wallet-name">Bitcoin Core</td>
+                    <td>Bitcoin Core is a full Bitcoin client and represents the backbone of the network. It offers high levels of security, privacy, and stability.</td>
+                    <td><span class="btn btn-warning btn-xs">ADVANCED</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Green Wallet</td>
+                    <td>Desktop version of Green wallet by Blockstream.</td>
+                    <td><span class="btn btn-success btn-xs">BEGINNER</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Electrum</td>
+                    <td>Only recommended when connected to your node via a personal server (EPS, electrs, electrumX, or Fulcrum).</td>
+                    <td><span class="btn btn-warning btn-xs">INTERMEDIATE</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Sparrow</td>
+                    <td><strong>The best desktop wallet</strong>, due to its multiple options and its adaptability for both novice and advanced users. It allows connection to your own node with an Electrum server and directly to Bitcoin Core via RPC. It has the same privacy tools as Samourai wallet.</td>
+                    <td><span class="btn btn-primary btn-xs">ALL LEVELS</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">Specter</td>
+                    <td>Wallet with a very intuitive and easy-to-use interface. With the possibility of connecting to your own node. Focused on creating multisignature wallets.</td>
+                    <td><span class="btn btn-warning btn-xs">INTERMEDIATE</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">FullyNoded Desktop</td>
+                    <td>Desktop version of the previously mentioned FullyNoded for mobile.</td>
+                    <td><span class="btn btn-warning btn-xs">ADVANCED</span></td>
+                </tr>
+                <tr>
+                    <td class="wallet-name">BlueWallet</td>
+                    <td>Desktop version of BlueWallet.</td>
+                    <td><span class="btn btn-success btn-xs">BEGINNER</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="alert alert-danger">
+            <strong>🚨 SECURITY REMINDER:</strong> Always verify wallet authenticity, use official sources for downloads, and never share your private keys or seed phrases with anyone!
+        </div>
+        
+        <div style="text-align: center; padding: 20px; background: #000080; color: #fff; margin-top: 20px; border: 2px outset #000080;">
+            <strong>END OF TRANSMISSION</strong><br>
+            <small>Bitcoin Wallets Guide v1.0 - Stay Safe, Stay Sovereign</small>
+        </div>
+    </div>
+</body>
+</html>
